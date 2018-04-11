@@ -75,7 +75,7 @@ class Answer(db.Model):
     question = db.relationship("Question",
                           backref=db.backref("answers"))
 
-     filled_form = db.relationship("Filled_Form",
+    filled_form = db.relationship("Filled_Form",
                           backref=db.backref("answers"))
     
                                              
@@ -142,9 +142,9 @@ class Login(db.Model):
 
     login_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_name = db.Column(db.String(64), nullable=False)
-    password = db.Column(db.String(10), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(180), nullable=False)
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -163,7 +163,6 @@ class Advocate(db.Model):
 
     advocate_login_id = db.Column(db.Integer, db.ForeignKey('login.login_id'), primary_key=True)
     position_name = db.Column(db.String(20), nullable=False)
-    advocate_phone = db.Column(db.Integer, nullable=False)
     shelter_agency_id = db.Column(db.Integer, db.ForeignKey(
                                                 'shelter_information.shelter_agency_id'))
 
@@ -193,12 +192,12 @@ class Victim(db.Model):
     advocate_login_id = db.Column(db.Integer, db.ForeignKey('login.login_id'))
 
     # Define relationship to Login
-    login = db.relationship("Login",
-                           backref=db.backref("victims"))
+    # login = db.relationship("Login",
+    #                        backref=db.backref("victims"))
                                               
     # Define relationship to Advocate
-    advocate = db.relationship("Advocate",
-                           backref=db.backref("victims"))
+    # advocate = db.relationship("Advocate",
+    #                        backref=db.backref("victims"))
                                              
   
 
@@ -215,7 +214,7 @@ class Agency_Type(db.Model):
     __tablename__ = "agency_type"
 
     agency_type_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    agency_type = db.Column(db.String(15), nullable=False)
+    agency_type = db.Column(db.String(100), nullable=False)
    
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -255,7 +254,7 @@ def connect_to_db(app):
     """Connecting the database to our Flask Application"""
     
     #TODO name our postgres file
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///testdb'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app= app
     db.init_app(app)
