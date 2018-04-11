@@ -93,8 +93,8 @@ class Agency(db.Model):
 
     agency_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     agency_name = db.Column(db.String(100), nullable=False)
-    agency_address = db.Column(db.String(200), nullable=False)
-    agency_phone = db.Column(db.Integer, nullable=False)
+    agency_address = db.Column(db.String(500), nullable=False)
+    agency_phone = db.Column(db.BigInteger, nullable=False)
     agency_type_id = db.Column(db.Integer,
                                     db.ForeignKey('agency_type.agency_type_id'))
 
@@ -121,7 +121,7 @@ class Shelter_Information(db.Model):
                                                 primary_key=True)
     number_beds = db.Column(db.Integer, nullable=False)
     next_available_date = db.Column(db.DateTime, nullable=False)
-    hotline_number = db.Column(db.Integer, nullable=False)
+    hotline_number = db.Column(db.BigInteger, nullable=False)
 
     # Define relationship to Agency
     agency = db.relationship("Agency",
@@ -167,8 +167,7 @@ class Advocate(db.Model):
                                                 'shelter_information.shelter_agency_id'))
 
     # Define relationship to Login
-    login = db.relationship("Login",
-                           backref=db.backref("advocates"))
+    login = db.relationship("Login", backref=db.backref("advocates"))
                                              
     # Define relationship to Shelter_information
     shelter_information = db.relationship("Shelter_Information",
@@ -189,15 +188,13 @@ class Victim(db.Model):
 
     victim_login_id = db.Column(db.Integer, db.ForeignKey('login.login_id'),
                                     primary_key=True)
-    advocate_login_id = db.Column(db.Integer, db.ForeignKey('login.login_id'))
+    advocate_login_id = db.Column(db.Integer, db.ForeignKey('advocates.advocate_login_id'))
 
     # Define relationship to Login
-    # login = db.relationship("Login",
-    #                        backref=db.backref("victims"))
+    login = db.relationship("Login", backref=db.backref("victims"))
                                               
     # Define relationship to Advocate
-    # advocate = db.relationship("Advocate",
-    #                        backref=db.backref("victims"))
+    advocate = db.relationship("Advocate", backref=db.backref("victims"))
                                              
   
 
