@@ -22,7 +22,7 @@ class Question(db.Model):
     question_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     form_id = db.Column(db.Integer,
                         db.ForeignKey('forms.form_id'), nullable=False)
-    question_text = db.Column(db.String(200), nullable=False)
+    question_text = db.Column(db.String(500), nullable=False)
     question_number = db.Column(db.Integer, nullable=False)
     section_number = db.Column(db.Integer, nullable=False)
     answer_required = db.Column(db.Boolean, default=True, nullable=False)   #change variable name required 

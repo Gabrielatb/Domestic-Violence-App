@@ -14,10 +14,10 @@ app = Flask(__name__)
 #need app.secret_key if we want to use Flask session and the debug toolbar
 app.secret_key = "123"
 
-BACKGROUNDCHECK_TOKEN = os.environ.get('BACKGROUNDCHECK_APP_ID')
+# BACKGROUNDCHECK_TOKEN = os.environ.get('BACKGROUNDCHECK_APP_ID')
 
-#api request endpoint
-BACKGROUNDCHECK_URL = 'http://apijson.backgroundcheckapi.com/'
+# #api request endpoint
+# BACKGROUNDCHECK_URL = 'http://apijson.backgroundcheckapi.com/'
 
 
 #undefined variables in Jinja2 will fail without notifing, so 
