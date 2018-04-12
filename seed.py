@@ -71,7 +71,7 @@ def seed_data():
 
     question_3 = Question(question_text="Do you think he/she might try to kill you?",
                           question_number=3,
-                          section_number=2,
+                          section_number=1,
                           answer_required=True,
                           form=safety_plan_form)
 
@@ -86,7 +86,7 @@ def seed_data():
 
     question_5 = Question(question_text="Has he/she ever tried to choke you?",
                           question_number=5,
-                          section_number=3,
+                          section_number=2,
                           answer_required=True,
                           form=safety_plan_form)
 
@@ -94,42 +94,42 @@ def seed_data():
                                     jealous or does he/she control most of your
                                     daily activities?""",
                           question_number=6,
-                          section_number=3,
+                          section_number=2,
                           answer_required=True,
                           form=safety_plan_form)
 
     question_7 = Question(question_text="""Have you left him/her or separated
                           after living together or being married?""",
                           question_number=7,
-                          section_number=4,
+                          section_number=2,
                           answer_required=True,
                           form=safety_plan_form)
     question_8 = Question(question_text="Is he/she unemployed?",
                           question_number=8,
-                          section_number=4,
+                          section_number=2,
                           answer_required=True,
                           form=safety_plan_form)
     question_9 = Question(question_text="Has he/she ever tried to kill himself/herself?",
                           question_number=9,
-                          section_number=5,
+                          section_number=2,
                           answer_required=True,
                           form=safety_plan_form)
     question_10 = Question(question_text="Do you have a child that he/she knows is not his/hers?",
                            question_number=10,
-                           section_number=5,
+                           section_number=2,
                            answer_required=True,
                            form=safety_plan_form)
     question_11 = Question(question_text="""Does he/she follow or spy on
                             you or leave threatening message?""",
                            question_number=11,
-                           section_number=6,
+                           section_number=2,
                            answer_required=True,
                            form=safety_plan_form)
     question_12 = Question(question_text="""Is there anything else that worries
                             you about your safety? (If 'yes')
                             What worries you?""",
                            question_number=12,
-                           section_number=6,
+                           section_number=3,
                            answer_required=True,
                            form=safety_plan_form)
 

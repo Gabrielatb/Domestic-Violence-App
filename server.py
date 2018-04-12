@@ -73,7 +73,8 @@ def safety_plan():
     """Survivor is able to safety plan and send results directly to police
     department or shelter"""
 
-    return render_template("safety_plan.html")
+    question = Question.query.all()
+    return render_template("safety_plan.html", question=question)
 
 
 
