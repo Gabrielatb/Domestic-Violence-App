@@ -69,14 +69,34 @@ def shelter():
 
 
 @app.route("/safety-plan")
-def safety_plan():
+def safety_plan_form():
     """Survivor is able to safety plan and send results directly to police
     department or shelter"""
 
-    question = Question.query.all()
-    return render_template("safety_plan.html", question=question)
+    question_section_1 = Question.query.filter(Question.section_number==1, Question.form_id==1)
+    question_section_2 = Question.query.filter(Question.section_number==2, Question.form_id==1)
+    question_section_3 = Question.query.filter(Question.section_number==3, Question.form_id==1)
+    return render_template("safety_plan.html", questions=[question_section_1, question_section_2, question_section_3])
+
+@app.route("/safety-plan", methods=["POST"])
+def safety_plan_process():
+    """"Safety plan form is processed"""
+
+    answer = request.form["section_1_{{question.question_number}}"]
 
 
+    return "wow it worked"
+    return render_template("safety_plan.html")
+
+
+#look at request.form object
+#based on form you can get all questions for each question get section numeber and question number
+#look in form for answer
+#create answer object with information 
+
+
+#get list of question and find corresponding answer and get answers 
+#filled form process answers each answer ref to question
 
 if __name__ == "__main__":
 

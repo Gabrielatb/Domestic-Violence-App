@@ -2,20 +2,52 @@
 {% block title%} Safety Planning {% endblock %}
 {% block body %}
 
-<h1> Safety Plan</h1>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <h1> Safety Plan</h1>
+
+<form action="/safety-plan" method="POST">
 
 <!-- A "Yes" response to any of Questions #1-3 automatically triggers the protocol referral. -->
+Please respond to the following questions to the best of your ability 
+<ol>
+{% for question in questions[0] %}
+    <li>
+    {{question.question_text}}<br>
+    <input type='radio' name="section_1_{{question.question_number}}" value='y'>Yes
+    <input type='radio' name="section_1_{{question.question_number}}"value='n'>No
+    <input type='radio' name="section_1_{{question.question_number}}" value='d'>Decline Answer
+    {% endfor %}
 
-{{question}}
+    </li>
+    
+
+<!-- Negative responses to Questions #1-3, but positive responses to at least four of Questions #4-11, trigger the protocol referral. -->
+{% for question in questions[1] %}
+    <li>
+    {{question.question_text}}<br>
+<input type='radio' name="section_2_{{question.question_number}}" value='y'>Yes
+<input type='radio' name="section_2_{{question.question_number}}" value='n'>No
+<input type='radio' name="section_2_{{question.question_number}}" value='d'>Decline Answer 
+    </li>
+{% endfor %}
+</ol>
+<!-- An officer may trigger the protocol referral, if not already triggered above, as a result of the victim's response to the below question, or whenever the officer believes the victim is in a potentially lethal situation -->
+{% for question in questions[2] %}
+
+    {{question.question_text}}
+    {% endfor %}<br>
+    <textarea name='text' rows="10" cols="100">Please Type your answer below</textarea><br>
+    <input id='submit' type='submit'>
+
+
+</form>
 
 
 
-<!-- 
-Negative responses to Questions #1-3, but positive responses to at least four of Questions #4-11, trigger the protocol referral.
 
 
-
-
-An officer may trigger the protocol referral, if not already triggered above, as a result of the victim's response to the below question, or whenever the officer believes the victim is in a potentially lethal situation
- -->
 {% endblock %}

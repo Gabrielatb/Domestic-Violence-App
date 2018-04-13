@@ -37,8 +37,8 @@ class Question(db.Model):
 
         return """<Question ID: {}, Form ID: {}, Question Text: {}, 
             Question_Number: {}, Section Number: {} Answer Required: {}>""".format(
-                                self.question_id, form_id, question_text,
-                                question_number, section_number, answered_req)
+                                self.question_id, self.form_id, self.question_text,
+                                self.question_number, self.section_number, self.answer_required)
 
 
 class Form(db.Model):
