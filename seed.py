@@ -44,9 +44,6 @@ def seed_data():
     #creating victim
     victim_1 = Victim(login=login_2, advocate=advocate_1)
 
-
-    #TO DO: SEE if can use timestamp in order to see the time the form was sent
-    #creating filled safety plan form
     s2 = 'Monday, January 01, 2018'
     safety_plan_filled_form = Filled_Form(form=safety_plan_form, victim=victim_1,
                                           time_filled=datetime.strptime(s2, "%A, %B %d, %Y"))

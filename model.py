@@ -28,8 +28,8 @@ class Question(db.Model):
     answer_required = db.Column(db.Boolean, default=True, nullable=False)   #change variable name required 
 
     form = db.relationship("Form",
-                           backref=db.backref("answers"))
-    
+                           backref=db.backref("answer"))
+
 
 
     def __repr__(self):
@@ -61,7 +61,6 @@ class Form(db.Model):
 class Answer(db.Model):
     """Answer to questions within form"""
 
-
     __tablename__ = "answers"
 
     answer_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -69,15 +68,14 @@ class Answer(db.Model):
                          db.ForeignKey('questions.question_id'))
     answer_text = db.Column(db.String(500), nullable=True)
 
-    filled_form_id = db.Column(db.Integer, db.ForeignKey(
-                                    'filled_forms.filled_form_id'))
+    filled_form_id = db.Column(db.Integer, db.ForeignKey('filled_forms.filled_form_id'))
 
     #Define relationship to Question
     question = db.relationship("Question",
-                          backref=db.backref("answers"))
+                               backref=db.backref("answer"))
 
     filled_form = db.relationship("Filled_Form",
-                          backref=db.backref("answers"))
+                                  backref=db.backref("answer"))
     
                                              
 
@@ -104,7 +102,7 @@ class Agency(db.Model):
 
     # Define relationship to Agency_Type
     agency_type = db.relationship("Agency_Type",
-                           backref=db.backref("agencies"))
+                           backref=db.backref("agency"))
                                               
 
 
@@ -118,19 +116,17 @@ class Agency(db.Model):
 class Shelter_Information(db.Model):
     """Shelter information connected to one domestic violence agency """
 
-
     __tablename__ = "shelter_information"
 
     shelter_agency_id = db.Column(db.Integer, db.ForeignKey('agencies.agency_id'),
-                                                primary_key=True)
+                                  primary_key=True)
     number_beds = db.Column(db.Integer, nullable=False)
     next_available_date = db.Column(db.DateTime, nullable=False)
     hotline_number = db.Column(db.BigInteger, nullable=False)
 
     # Define relationship to Agency
     agency = db.relationship("Agency",
-                           backref=db.backref("shelter_information"))
-                                              
+                             backref=db.backref("shelter_information"))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -171,11 +167,11 @@ class Advocate(db.Model):
                                                 'shelter_information.shelter_agency_id'))
 
     # Define relationship to Login
-    login = db.relationship("Login", backref=db.backref("advocates"))
+    login = db.relationship("Login", backref=db.backref("advocate", use_list=False))
                                              
     # Define relationship to Shelter_information
     shelter_information = db.relationship("Shelter_Information",
-                           backref=db.backref("advocates"))
+                           backref=db.backref("advocate"))
                                               
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -195,10 +191,10 @@ class Victim(db.Model):
     advocate_login_id = db.Column(db.Integer, db.ForeignKey('advocates.advocate_login_id'))
 
     # Define relationship to Login
-    login = db.relationship("Login", backref=db.backref("victims"))
+    login = db.relationship("Login", backref=db.backref("victim", use_list=False))
                                               
     # Define relationship to Advocate
-    advocate = db.relationship("Advocate", backref=db.backref("victims"))
+    advocate = db.relationship("Advocate", backref=db.backref("victim"))
                                              
   
 
@@ -235,10 +231,10 @@ class Filled_Form(db.Model):
     time_filled = db.Column(db.DateTime, nullable=True)
 
     #Define relationship to Form
-    form = db.relationship("Form", backref=db.backref('filled_forms'))
+    form = db.relationship("Form", backref=db.backref('filled_form'))
 
     #Define relationship to Victim
-    victim = db.relationship("Victim", backref=db.backref('filled_forms'))
+    victim = db.relationship("Victim", backref=db.backref('filled_form'))
    
     def __repr__(self):
         """Provide helpful representation when printed."""

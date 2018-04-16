@@ -2,6 +2,7 @@
 
 
 from jinja2 import StrictUndefined
+import datetime
 from flask import Flask, render_template, redirect, request, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from model import Question, Form, Answer, Agency, Shelter_Information, Login
@@ -20,14 +21,14 @@ app.secret_key = "123"
 # BACKGROUNDCHECK_URL = 'http://apijson.backgroundcheckapi.com/'
 
 
-#undefined variables in Jinja2 will fail without notifing, so 
+#undefined variables in Jinja2 will fail without notifing, so
 #StrictUndefined will allow Jinja2 to raise an error for undef variables
 app.jinja_env.undefined = StrictUndefined
+
 
 @app.route('/', methods=['GET'])
 def login():
     """login of domestic violence app"""
-
 
     return render_template("login.html")
 
@@ -51,66 +52,79 @@ def login_process():
         return redirect("/")
 
     session["login_id"] = user.login_id
+    #session['victim'] = blah
+    #session['advocate'] = blah
 
     flash("You are logged in")
     return redirect("/welcome")
+
+    #if user.victim == none
+
+    #else
+    #advocate
+
 
 @app.route('/register', methods=['GET'])
 def register_form():
     """User create profile"""
 
-    return render_template("registration.html")
+    return render_template("client_or_advocate.html")
 
 
 @app.route('/register', methods=['POST'])
 def register_process():
     """Profile created"""
 
-    for key in request.form.keys():
-        print key
+    client_or_advocate = request.form['advocate/client']
 
-    username = request.form['username']
-    password = request.form['password']
-    name = request.form['name']
-    email = request.form['email']
+    if client_or_advocate == 'client':
+        return redirect("/register/client")
 
-    new_user = Login(name=name, password=password, user_name=username, email=email)
-    db.session.add(new_user)
-    db.session.commit()
-    flash("You are now registered! Please login.")
-    return redirect("/")
+    return redirect("/register/advocate")
+
+    # for key in request.form.keys():
+    #     print key
+
+    # username = request.form['username']
+    # password = request.form['password']
+    # name = request.form['name']
+    # email = request.form['email']
+
+    # new_user = Login(name=name, password=password, user_name=username, email=email)
+    # db.session.add(new_user)
+    # db.session.commit()
+    # flash("You are now registered! Please login.")
+    # return redirect("/")
+
+
+@app.route('/register/client', methods=['GET'])
+def register_client():
+    """Client create profile"""
+
+    return render_template("client_registration.html")
+
+
+@app.route('/register/advocate', methods=['GET'])
+def register_advocate():
+    """Advocate create profile"""
+
+    return render_template("advocate_registration.html")
 
 
 @app.route('/welcome')
 def homepage():
     """Homepage of domestic violence app"""
 
-
     return render_template("homepage.html")
+
 
 @app.route('/legal')
 def legal_advocacy():
     """Legal Advocacy page: search for offenders with criminal background check
         API."""
 
-        #get request
-        
-#         payload = {http://apijson.backgroundcheckapi.com/?App_ID=":"[BACKGROUND CHECK API APP
-# ID]&App_Key=[BACKGROUND CHECK API APP KEY]&Timestamp=[CURRENT
-# TIMESTAMP]&IP=[IP]&catalogue=BACKGROOUND&FirstName= Neal Anderson &LastName= Stanford
-# &MiddleName=&State= Washington &County= Benton &City= STEILACOOM
-# &BirthYear=&CrimeType=&ExactMatch=Yes}
-
-
-
-#         http://apijson.backgroundcheckapi.com/?App_ID=":"[BACKGROUND CHECK API APP
-# ID]&App_Key=[BACKGROUND CHECK API APP KEY]&Timestamp=[CURRENT
-# TIMESTAMP]&IP=[IP]&catalogue=BACKGROOUND&FirstName= Neal Anderson &LastName= Stanford
-# &MiddleName=&State= Washington &County= Benton &City= STEILACOOM
-# &BirthYear=&CrimeType=&ExactMatch=Yes
-
-
     return render_template("legal_advocacy.html")
+
 
 @app.route("/financial")
 def financial():
@@ -127,6 +141,7 @@ def financial():
                                                                 question_section_2,
                                                                 question_section_3, question_section_4, question_section_5])
 
+
 @app.route("/financial", methods=["POST"])
 def victim_comp_process():
     """"Victim Compensation form is processed"""
@@ -136,16 +151,13 @@ def victim_comp_process():
     for key in request.form.keys():
         print key
         if key == 'form_id':
-
             print key
-        
 
         elif len(key) == 12:
             question_id = key[-2:]
             section_number = key[8]
             answer_text = request.form['section_' + section_number + '_' + question_id]
             print answer_text
-
 
         else:
             question_id = key[-1]
@@ -155,15 +167,12 @@ def victim_comp_process():
 
         anwer_text = Answer(question_id=question_id, answer_text=answer_text, filled_form_id=2)
         db.session.add(anwer_text)
-  
-    filled_form = Filled_Form(form_id=form_id, victim_login_id=session["login_id"])
-    db.session.add(filled_form)
 
+    filled_form = Filled_Form(form_id=form_id, victim_login_id=session["login_id"], time_filled=datetime.datetime.now())
+    db.session.add(filled_form)
 
     db.session.commit()
 
-
-      
     return redirect('/welcome')
 
 
@@ -187,20 +196,18 @@ def safety_plan_form():
                                                           question_section_2,
                                                           question_section_3])
 
+
 @app.route("/safety-plan", methods=["POST"])
 def safety_plan_process():
     """"Safety plan form is processed"""
 
     form_id = request.form['form_id']
-    # login_all = Login.query.filter)
-    # print login_all
-    
 
     for key in request.form.keys():
         if key == 'form_id':
 
             print key
-            
+
         elif key == 'victim_login_id':
 
             print key
@@ -211,46 +218,21 @@ def safety_plan_process():
             answer_text = request.form['section_' + section_number + '_' + question_id]
             print answer_text
 
-
         else:
             question_id = key[-1]
             section_number = key[8]
             answer_text = request.form['section_' + section_number + '_' + question_id]
             print answer_text
 
-
-     
         anwer_text = Answer(question_id=question_id, answer_text=answer_text, filled_form_id=1)
         db.session.add(anwer_text)
 
-    filled_form = Filled_Form(form_id=form_id, victim_login_id=session["login_id"])
+    filled_form = Filled_Form(form_id=form_id, victim_login_id=session["login_id"], time_filled=datetime.datetime.now())
     db.session.add(filled_form)
     db.session.commit()
 
-
-      
     return redirect('/welcome')
 
-
-#     db.session.add(added_answer)
-#     db.session.commit()
-#     # return answer_text 
-#     # return answer
-#     return redirect("/")
-
-
-
-#Answer(question_id, filled_form_id, answer_text)
-
-#look at request.form object
-#based on form you can get all questions for each question get section number 
-#and question number
-#look in form for answer
-#create answer object with information 
-
-
-#get list of question and find corresponding answer and get answers 
-#filled form process answers each answer ref to question
 
 if __name__ == "__main__":
 
