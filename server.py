@@ -2,7 +2,7 @@
 
 
 from jinja2 import StrictUndefined
-from flask import (Flask, render_template, redirect, request, session)
+from flask import Flask, render_template, redirect, request, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from model import Question, Form, Answer, Agency, Shelter_Information, Login
 from model import Advocate, Victim, Agency_Type, Filled_Form
@@ -24,9 +24,67 @@ app.secret_key = "123"
 #StrictUndefined will allow Jinja2 to raise an error for undef variables
 app.jinja_env.undefined = StrictUndefined
 
-@app.route('/')
+@app.route('/', methods=['GET'])
+def login():
+    """login of domestic violence app"""
+
+
+    return render_template("login.html")
+
+
+@app.route('/login', methods=['POST'])
+def login_process():
+    """login processed """
+
+#getting login variables
+    username = request.form['username']
+    password = request.form['password']
+
+    user = Login.query.filter_by(user_name=username).first()
+
+    if not user:
+        flash("Username does not exist")
+        return redirect("/")
+
+    elif user.password != password:
+        flash("Password incorrect, please try again.")
+        return redirect("/")
+
+    session["login_id"] = user.login_id
+
+    flash("You are logged in")
+    return redirect("/welcome")
+
+@app.route('/register', methods=['GET'])
+def register_form():
+    """User create profile"""
+
+    return render_template("registration.html")
+
+
+@app.route('/register', methods=['POST'])
+def register_process():
+    """Profile created"""
+
+    for key in request.form.keys():
+        print key
+
+    username = request.form['username']
+    password = request.form['password']
+    name = request.form['name']
+    email = request.form['email']
+
+    new_user = Login(name=name, password=password, user_name=username, email=email)
+    db.session.add(new_user)
+    db.session.commit()
+    flash("You are now registered! Please login.")
+    return redirect("/")
+
+
+@app.route('/welcome')
 def homepage():
     """Homepage of domestic violence app"""
+
 
     return render_template("homepage.html")
 
@@ -59,7 +117,55 @@ def financial():
     """Financial Options page: Florida's Victim Compensation form available
         for submitall"""
 
-    return render_template("financial_options.html")
+    question_section_1 = Question.query.filter(Question.section_number == 1, Question.form_id == 2)
+    question_section_2 = Question.query.filter(Question.section_number == 2, Question.form_id == 2)
+    question_section_3 = Question.query.filter(Question.section_number == 3, Question.form_id == 2)
+    question_section_4 = Question.query.filter(Question.section_number == 4, Question.form_id == 2)
+    question_section_5 = Question.query.filter(Question.section_number == 5, Question.form_id == 2)
+
+    return render_template("financial_options.html", questions=[question_section_1,
+                                                                question_section_2,
+                                                                question_section_3, question_section_4, question_section_5])
+
+@app.route("/financial", methods=["POST"])
+def victim_comp_process():
+    """"Victim Compensation form is processed"""
+
+    form_id = request.form['form_id']
+
+    for key in request.form.keys():
+        print key
+        if key == 'form_id':
+
+            print key
+        
+
+        elif len(key) == 12:
+            question_id = key[-2:]
+            section_number = key[8]
+            answer_text = request.form['section_' + section_number + '_' + question_id]
+            print answer_text
+
+
+        else:
+            question_id = key[-1]
+            section_number = key[8]
+            answer_text = request.form['section_' + section_number + '_' + question_id]
+            print answer_text
+
+        anwer_text = Answer(question_id=question_id, answer_text=answer_text, filled_form_id=2)
+        db.session.add(anwer_text)
+  
+    filled_form = Filled_Form(form_id=form_id, victim_login_id=session["login_id"])
+    db.session.add(filled_form)
+
+
+    db.session.commit()
+
+
+      
+    return redirect('/welcome')
+
 
 @app.route("/shelter")
 def shelter():
@@ -73,24 +179,72 @@ def safety_plan_form():
     """Survivor is able to safety plan and send results directly to police
     department or shelter"""
 
-    question_section_1 = Question.query.filter(Question.section_number==1, Question.form_id==1)
-    question_section_2 = Question.query.filter(Question.section_number==2, Question.form_id==1)
-    question_section_3 = Question.query.filter(Question.section_number==3, Question.form_id==1)
-    return render_template("safety_plan.html", questions=[question_section_1, question_section_2, question_section_3])
+    question_section_1 = Question.query.filter(Question.section_number == 1, Question.form_id == 1)
+    question_section_2 = Question.query.filter(Question.section_number == 2, Question.form_id == 1)
+    question_section_3 = Question.query.filter(Question.section_number == 3, Question.form_id == 1)
+
+    return render_template("safety_plan.html", questions=[question_section_1,
+                                                          question_section_2,
+                                                          question_section_3])
 
 @app.route("/safety-plan", methods=["POST"])
 def safety_plan_process():
     """"Safety plan form is processed"""
 
-    answer = request.form["section_1_{{question.question_number}}"]
+    form_id = request.form['form_id']
+    # login_all = Login.query.filter)
+    # print login_all
+    
+
+    for key in request.form.keys():
+        if key == 'form_id':
+
+            print key
+            
+        elif key == 'victim_login_id':
+
+            print key
+
+        elif len(key) == 12:
+            question_id = key[-2:]
+            section_number = key[8]
+            answer_text = request.form['section_' + section_number + '_' + question_id]
+            print answer_text
 
 
-    return "wow it worked"
-    return render_template("safety_plan.html")
+        else:
+            question_id = key[-1]
+            section_number = key[8]
+            answer_text = request.form['section_' + section_number + '_' + question_id]
+            print answer_text
 
+
+     
+        anwer_text = Answer(question_id=question_id, answer_text=answer_text, filled_form_id=1)
+        db.session.add(anwer_text)
+
+    filled_form = Filled_Form(form_id=form_id, victim_login_id=session["login_id"])
+    db.session.add(filled_form)
+    db.session.commit()
+
+
+      
+    return redirect('/welcome')
+
+
+#     db.session.add(added_answer)
+#     db.session.commit()
+#     # return answer_text 
+#     # return answer
+#     return redirect("/")
+
+
+
+#Answer(question_id, filled_form_id, answer_text)
 
 #look at request.form object
-#based on form you can get all questions for each question get section numeber and question number
+#based on form you can get all questions for each question get section number 
+#and question number
 #look in form for answer
 #create answer object with information 
 
@@ -105,6 +259,7 @@ if __name__ == "__main__":
     app.jinja_env.auto_reload = app.debug
 
     connect_to_db(app)
+    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
     app.config['SQLALCHEMY_ECHO'] = True
     DebugToolbarExtension(app)

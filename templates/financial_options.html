@@ -2,6 +2,62 @@
 {% block title %} Financial Options {% endblock %}
 {% block body %}
 
-<h1>Financial Options</h1>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <h1>Financial Options</h1>
+
+<form action="/financial" method="POST">
+     <input type='hidden' name='form_id' value=2>
+
+<h2>Victim Compensation Application</h2>
+<ol>
+{% for question in questions[0] %}
+    <li>
+    {{question.question_text}}<br>
+    <input type='text' name="section_1_{{question.question_number}}">
+    {% endfor %}
+
+    </li>
+    
+
+{% for question in questions[1] %}
+    <li>
+    {{question.question_text}}<br>
+    <input type='text' name="section_2_{{question.question_number}}">
+    {% endfor %}
+
+    </li>
+
+
+{% for question in questions[2] %}
+    <li>
+    {{question.question_text}}<br>
+  <input type='text' name="section_3_{{question.question_number}}">
+    </li>
+    {% endfor %}
+    
+{% for question in questions[3] %}
+    <li>
+    {{question.question_text}}<br>
+<input type='text' name="section_4_{{question.question_number}}">
+    </li>
+{% endfor %}
+
+{% for question in questions[4] %}
+    <li>
+    {{question.question_text}}<br>
+<input type='text' name="section_5_{{question.question_number}}">
+    </li>
+{% endfor %}
+
+<input id='submit' type='submit'>
+</form>
+
+
 
 {% endblock %}
+
+

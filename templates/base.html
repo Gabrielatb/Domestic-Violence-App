@@ -5,6 +5,13 @@
 
 </head>
     <body>
-        {% block body %}{% endblock %}
+
+        {% for flash in get_flashed_messages() %}
+            {{ flash }}
+        {% endfor %}
+
+        {% block body %}
+
+        {% endblock %}
     </body>
 </html>

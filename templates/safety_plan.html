@@ -10,16 +10,16 @@
     <h1> Safety Plan</h1>
 
 <form action="/safety-plan" method="POST">
-
+    <input type='hidden' name='form_id' value=1>
 <!-- A "Yes" response to any of Questions #1-3 automatically triggers the protocol referral. -->
 Please respond to the following questions to the best of your ability 
 <ol>
 {% for question in questions[0] %}
     <li>
     {{question.question_text}}<br>
-    <input type='radio' name="section_1_{{question.question_number}}" value='y'>Yes
-    <input type='radio' name="section_1_{{question.question_number}}"value='n'>No
-    <input type='radio' name="section_1_{{question.question_number}}" value='d'>Decline Answer
+    <input required type='radio' name="section_1_{{question.question_number}}" value='yes'>Yes
+    <input required type='radio' name="section_1_{{question.question_number}}"value='no'>No
+    <input required type='radio' name="section_1_{{question.question_number}}" value='decline'>Decline 
     {% endfor %}
 
     </li>
@@ -29,9 +29,9 @@ Please respond to the following questions to the best of your ability
 {% for question in questions[1] %}
     <li>
     {{question.question_text}}<br>
-<input type='radio' name="section_2_{{question.question_number}}" value='y'>Yes
-<input type='radio' name="section_2_{{question.question_number}}" value='n'>No
-<input type='radio' name="section_2_{{question.question_number}}" value='d'>Decline Answer 
+<input type='radio' name="section_2_{{question.question_number}}" value='yes'>Yes
+<input type='radio' name="section_2_{{question.question_number}}" value='no'>No
+<input type='radio' name="section_2_{{question.question_number}}" value='decline'>Decline Answer 
     </li>
 {% endfor %}
 </ol>
@@ -40,7 +40,7 @@ Please respond to the following questions to the best of your ability
 
     {{question.question_text}}
     {% endfor %}<br>
-    <textarea name='text' rows="10" cols="100">Please Type your answer below</textarea><br>
+    <textarea name='section_3_12' rows="10" cols="100">Please Type your answer below</textarea><br>
     <input id='submit' type='submit'>
 
 

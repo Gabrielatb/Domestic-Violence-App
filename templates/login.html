@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %} Login{% endblock %}
+{% block body %}
+
+<h1>Login</h1>
+<form action="/login" method="POST">
+    <div>
+        <label>Username: <br>
+            <input required type="text" name="username">
+        </label>
+    </div>
+    <div>
+        <label>Password:<br>
+            <input required type="password" name="password">
+        </label>
+    </div>
+
+    <input type='submit' name='submit'><br>
+
+</form>
+
+
+If you are a new user. Create your profile by clicking below: <br><br>
+<a href='/register'>Create Profile</a>
+
+{% endblock %}

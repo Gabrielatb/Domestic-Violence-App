@@ -84,7 +84,10 @@ class Answer(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Answer ID: {}, Question ID: {}, Answer Text: {}, >".format(self.answer_id, self.question_id, self.answer_text)
+        return "<Answer ID: {}, Question ID: {}, Answer Text: {}, >".format(
+                                                                        self.answer_id,
+                                                                        self.question_id,
+                                                                        self.answer_text)
 
 class Agency(db.Model):
     """Agency information, specification"""
@@ -229,7 +232,7 @@ class Filled_Form(db.Model):
     filled_form_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     form_id = db.Column(db.Integer, db.ForeignKey('forms.form_id'))
     victim_login_id = db.Column(db.Integer, db.ForeignKey('victims.victim_login_id'))
-    time_filled = db.Column(db.DateTime, nullable=False)
+    time_filled = db.Column(db.DateTime, nullable=True)
 
     #Define relationship to Form
     form = db.relationship("Form", backref=db.backref('filled_forms'))
@@ -242,7 +245,7 @@ class Filled_Form(db.Model):
 
         return """<Filled Form ID: {}, Form ID: {}, Victim ID: {},
                  Time Filled: {}>""".format(self.filled_form_id, self.form_id,
-                                            self.victim_id, self.time_filled)
+                                            self.victim_login_id, self.time_filled)
 
 
 
