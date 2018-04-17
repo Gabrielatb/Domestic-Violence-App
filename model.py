@@ -201,7 +201,7 @@ class Victim(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Victim login ID: {}>, Advocate login ID: {}".format(self.victim_login_id,
+        return "<Victim login ID: {}, Advocate login ID: {}>".format(self.victim_login_id,
                                                self.advocate_login_id)
 
 class Agency_Type(db.Model):
@@ -231,11 +231,11 @@ class Filled_Form(db.Model):
     time_filled = db.Column(db.DateTime, nullable=True)
 
     #Define relationship to Form
-    form = db.relationship("Form", backref=db.backref('filled_form'))
+    form = db.relationship("Form", backref=db.backref('filled_forms'))
 
     #Define relationship to Victim
-    victim = db.relationship("Victim", backref=db.backref('filled_form'))
-   
+    victim = db.relationship("Victim", backref=db.backref('filled_forms'))
+
     def __repr__(self):
         """Provide helpful representation when printed."""
 
@@ -249,7 +249,7 @@ class Filled_Form(db.Model):
 
 def connect_to_db(app):
     """Connecting the database to our Flask Application"""
-    
+
     #TODO name our postgres file
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///testdb'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

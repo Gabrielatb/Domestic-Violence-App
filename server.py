@@ -62,6 +62,13 @@ def login_process():
 
     #else
     #advocate
+@app.route('/logout')
+def logout_process():
+    """logout"""
+
+    del session['login_id']
+    flash("Logged Out.")
+    return redirect("/")
 
 
 @app.route('/register', methods=['GET'])
@@ -162,23 +169,38 @@ def advocate_registration_process():
 
     shelter_information = Shelter_Information.query.filter_by(shelter_agency_id=shelter_id).first()
     new_advocate = Advocate(login=user, shelter_information=shelter_information,
-                              position_name=position_title)
+                            position_name=position_title)
 
     db.session.add(new_advocate)
     db.session.commit()
     flash("You are now registered! Please login.")
     return redirect("/")
 
-@app.route('/')
-def homepage():
+@app.route('/advocate')
+def adocate_view_client_forms():
     """Advocates view their clients filled out forms"""
 
+    victims = Victim.query.filter_by(advocate_login_id=session["login_id"]).all()
+    filled_forms_list = []
+    for victim in victims:
+        filled_forms = Filled_Form.query.filter_by(victim_login_id=victim.victim_login_id).all()
+        filled_forms_list.append(filled_forms)
+    print filled_forms_list
+
+    # filled_forms = Filled_Form.query.all()
+
+    #    <!-- {% for victim in victims %}
+    # <br><b>{{victim.login.name}}:<br></b> -->
+
+    #victim --> Filled Form(for each victim) --> Form name --> Questions --> Answers-->
+
+
+    # answers = Answer.query.filter_by(filled_form_id=)
     #all victims appear for the advocate
     #all the victims filled out forms appear with a link
     #advocate will click the link and be able to see all answers of victims
 
-
-    return render_template("advocate_view_forms.html")
+    return render_template("advocate_view_forms.html", victims=victims, filled_forms=filled_forms_list)
 
 
 
