@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %} Login{% endblock %}
+{% block body %}
+
+<h1>Login</h1>
+<form action="/register/client" method="POST">
+    <div>
+        <label>Name (Please type First and Last name)<br>
+            <input required type="text" name="name">
+        </label>
+    </div>
+    <div>
+        <br><label>Email<br>
+            <input required type="text" name="email">
+        </label>
+    </div>
+    <div>
+        <br><label>Username<br>
+            <input required type="text" name="username">
+        </label>
+    </div>
+    <div>
+        <br><label>Password<br>
+            <input required type="password" name="password">
+        </label>
+    </div>
+      <div>
+        <br><label>Please choose an advocate<br>
+            <select name='advocate'>
+            {% for advocate in advocates %}
+            <option value= "{{ advocate.advocate_login_id }}"> {{advocate.login.name}} </option>
+            {% endfor %}
+        </select>
+        </label>
+
+    
+
+
+
+
+    <br><input type='submit' id='submit'>
+
+</form>
+
+
+{% endblock %}

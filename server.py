@@ -82,9 +82,6 @@ def register_process():
 
     return redirect("/register/advocate")
 
-    # for key in request.form.keys():
-    #     print key
-
     # username = request.form['username']
     # password = request.form['password']
     # name = request.form['name']
@@ -101,14 +98,88 @@ def register_process():
 def register_client():
     """Client create profile"""
 
-    return render_template("client_registration.html")
+    all_advocates = Advocate.query.all()
+
+    return render_template("client_registration.html", advocates=all_advocates)
+
+
+@app.route('/register/client', methods=['POST'])
+def client_registration_process():
+    """Client create profile"""
+
+    name = request.form['name']
+    email = request.form['email']
+    username = request.form['username']
+    password = request.form['password']
+    advocate_id = request.form['advocate']
+
+
+    user = Login(name=name, password=password, user_name=username, email=email)
+    
+    db.session.add(user)
+    db.session.commit()
+
+    user = Login.query.filter_by(user_name=username).first()
+    advocate = Advocate.query.filter_by(advocate_login_id=advocate_id).first()
+    
+    new_victim = Victim(login=user, advocate=advocate)
+    db.session.add(new_victim)
+    db.session.commit()
+    flash("You are now registered! Please login.")
+
+    return redirect("/")
 
 
 @app.route('/register/advocate', methods=['GET'])
 def register_advocate():
     """Advocate create profile"""
 
-    return render_template("advocate_registration.html")
+    shelter_information = Shelter_Information.query.all()
+
+    return render_template("advocate_registration.html",
+                            shelter_information=shelter_information)
+
+
+@app.route('/register/advocate', methods=['POST'])
+def advocate_registration_process():
+    """Advocate create profile"""
+
+    username = request.form['username']
+    password = request.form['password']
+    name = request.form['name']
+    email = request.form['email']
+    position_title = request.form['position_title']
+    shelter_id = request.form['shelter']
+
+
+    user = Login(name=name, password=password, user_name=username, email=email)
+    db.session.add(user)
+    db.session.commit()
+
+    user = Login.query.filter_by(user_name=username).first()
+
+# #drop down menu so when add new shelter informatio will auto populate drop down menu
+
+    shelter_information = Shelter_Information.query.filter_by(shelter_agency_id=shelter_id).first()
+    new_advocate = Advocate(login=user, shelter_information=shelter_information,
+                              position_name=position_title)
+
+    db.session.add(new_advocate)
+    db.session.commit()
+    flash("You are now registered! Please login.")
+    return redirect("/")
+
+@app.route('/')
+def homepage():
+    """Advocates view their clients filled out forms"""
+
+    #all victims appear for the advocate
+    #all the victims filled out forms appear with a link
+    #advocate will click the link and be able to see all answers of victims
+
+
+    return render_template("advocate_view_forms.html")
+
 
 
 @app.route('/welcome')

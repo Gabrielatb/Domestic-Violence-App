@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %} Login{% endblock %}
+{% block body %}
+
+<h1>Are you a Client or Advocate?</h1>
+<form action="/register" method="POST">
+    <input required type='radio' name="advocate/client" value='advocate'>Advocate
+    <input required type='radio' name="advocate/client" value='client'>Client<br><br>
+    <input type='submit' name='submit'>
+</form>
+
+
+
+
+{% endblock %}

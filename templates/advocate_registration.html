@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %} Login{% endblock %}
+{% block body %}
+
+<h1>Login</h1>
+<form action="/register/advocate" method="POST">
+    <div>
+        <label>Name (Please type First and Last name)<br>
+            <input required type="text" name="name">
+        </label>
+    </div>
+    <div>
+        <br><label>Email<br>
+            <input required type="text" name="email">
+        </label>
+    </div>
+    <div>
+        <br><label>Username<br>
+            <input required type="text" name="username">
+        </label>
+    </div>
+    <div>
+        <br><label>Password<br>
+            <input required type="password" name="password">
+        </label>
+    </div>
+    <div>
+        <br><label>Position Title<br>
+            <input required type="text" name="position_title">
+        </label>
+    </div>
+     <div>
+        <br><label>Please choose your shelter id number<br>
+            <select name='shelter'>
+            {% for shelter in shelter_information %}
+            <option value= "{{ shelter.shelter_agency_id }}"> {{shelter.agency.agency_name}} </option>
+            {% endfor %}
+        </select>
+        </label>
+    </div>
+    
+
+    <br><input type='submit' id='submit'>
+
+</form>
+
+
+{% endblock %}

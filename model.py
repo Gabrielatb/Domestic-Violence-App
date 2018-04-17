@@ -110,7 +110,7 @@ class Agency(db.Model):
         """Provide helpful representation when printed."""
 
         return "<Agency ID {}, Agency Name {}>".format(self.agency_id,
-                                                agency_name)
+                                                self.agency_name)
 
 
 class Shelter_Information(db.Model):
@@ -121,7 +121,7 @@ class Shelter_Information(db.Model):
     shelter_agency_id = db.Column(db.Integer, db.ForeignKey('agencies.agency_id'),
                                   primary_key=True)
     number_beds = db.Column(db.Integer, nullable=False)
-    next_available_date = db.Column(db.DateTime, nullable=False)
+    next_available_date = db.Column(db.DateTime, nullable=True)
     hotline_number = db.Column(db.BigInteger, nullable=False)
 
     # Define relationship to Agency
@@ -132,7 +132,7 @@ class Shelter_Information(db.Model):
         """Provide helpful representation when printed."""
 
         return "<Shelter Agency Id: {}, Number of Beds: {}, Next Available Date: {}>".format(
-                                            shelter_agency_id, number_beds, next_available_date)
+                                            self.shelter_agency_id, self.number_beds, self.next_available_date)
 
 class Login(db.Model):
     """Login information which stores user information"""
@@ -167,7 +167,7 @@ class Advocate(db.Model):
                                                 'shelter_information.shelter_agency_id'))
 
     # Define relationship to Login
-    login = db.relationship("Login", backref=db.backref("advocate", use_list=False))
+    login = db.relationship("Login", backref=db.backref("advocate", uselist=False))
                                              
     # Define relationship to Shelter_information
     shelter_information = db.relationship("Shelter_Information",
@@ -191,7 +191,7 @@ class Victim(db.Model):
     advocate_login_id = db.Column(db.Integer, db.ForeignKey('advocates.advocate_login_id'))
 
     # Define relationship to Login
-    login = db.relationship("Login", backref=db.backref("victim", use_list=False))
+    login = db.relationship("Login", backref=db.backref("victim", uselist=False))
                                               
     # Define relationship to Advocate
     advocate = db.relationship("Advocate", backref=db.backref("victim"))
