@@ -35,8 +35,8 @@ def seed_data():
     #creating shelter
     s1 = 'Monday, February 01, 2018'
     shelter_information_1 = Shelter_Information(agency=agency_1, number_beds=42,
-                                                next_available_date=datetime.strptime(s1, "%A, %B %d, %Y"),
-                                                hotline_number=18007997233)
+                                                next_available_date=datetime.strptime(s1, "%A, %B %d, %Y"))
+                                  
 
     #creating advocate
     advocate_1 = Advocate(login=login_1, shelter_information=shelter_information_1,

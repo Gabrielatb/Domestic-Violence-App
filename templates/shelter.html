@@ -8,7 +8,7 @@
 
 <b>Available beds:</b> {{shelter.number_beds}}<br>
 <b>Next available date:</b> {{shelter.next_available_date}}<br>
-<b>24/hour hotline number:</b> {{shelter.hotline_number}}<br>
+<b>24/hour hotline number:</b> 1-800-799-7233<br>
 <!-- -Shelter Template
 -Shelter status
 -fill out shelter route
@@ -16,6 +16,17 @@
 
 
 
+{% for advocate in advocates%}
+    {% if login_id == advocate.advocate_login_id%}
+        <form action="/shelter" method="POST"><br><br><br><br><br>
+            <b>Please Edit Shelter Status Below</b><br><br>
+            Number of beds available: <input type="text" name="number_available_beds"><br>
+            Time the next bed will be available: <input type="datetime-local" name="time_available_beds"><br>
+            <input id='submit' type='submit'>
 
+
+
+    {% endif %}
+{% endfor %}
 
 {% endblock %}

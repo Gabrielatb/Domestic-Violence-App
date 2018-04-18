@@ -217,6 +217,8 @@ def legal_advocacy():
     """Legal Advocacy page: search for offenders with criminal background check
         API."""
 
+        
+
     return render_template("legal_advocacy.html")
 
 
@@ -266,7 +268,7 @@ def victim_comp_process():
     db.session.add(filled_form)
 
     db.session.commit()
-
+    flash("You have successfully submitted your Victim Compensation Application")
     return redirect('/welcome')
 
 
@@ -275,10 +277,26 @@ def shelter():
     """Information about shelter and shelter availability """
 
     shelter = Shelter_Information.query.first()
-    print shelter
+    login_id = session.get("login_id")
+    victims = Victim.query.all()
+    advocates = Advocate.query.all()
 
-    return render_template("shelter.html", shelter=shelter)
+    return render_template("shelter.html", shelter=shelter, login_id=login_id, victims=victims, advocates=advocates)
 
+@app.route("/shelter", methods=["POST"])
+def shelter_process():
+    """Update shelter status """
+
+
+    number_beds =request.form["number_available_beds"]
+    next_available_date = request.form["time_available_beds"]
+
+    db.session.query(Shelter_Information).filter(Shelter_Information.shelter_agency_id == 1).update({'next_available_date': next_available_date, 'number_beds': number_beds})
+    db.session.commit()
+
+
+    flash("Shelter status has been changed")
+    return redirect("/welcome")
 
 @app.route("/safety-plan")
 def safety_plan_form():
@@ -328,6 +346,7 @@ def safety_plan_process():
     db.session.add(filled_form)
     db.session.commit()
 
+    flash("You have successfully submitted your safety plan")
     return redirect('/welcome')
 
 

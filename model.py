@@ -25,10 +25,10 @@ class Question(db.Model):
     question_text = db.Column(db.String(500), nullable=False)
     question_number = db.Column(db.Integer, nullable=False)
     section_number = db.Column(db.Integer, nullable=False)
-    answer_required = db.Column(db.Boolean, default=True, nullable=False)   
+    answer_required = db.Column(db.Boolean, default=True, nullable=False)   #change variable name required 
 
     form = db.relationship("Form",
-                           backref=db.backref("question"))
+                           backref=db.backref("answer"))
 
 
 
@@ -122,7 +122,6 @@ class Shelter_Information(db.Model):
                                   primary_key=True)
     number_beds = db.Column(db.Integer, nullable=False)
     next_available_date = db.Column(db.DateTime, nullable=True)
-    hotline_number = db.Column(db.BigInteger, nullable=False)
 
     # Define relationship to Agency
     agency = db.relationship("Agency",
@@ -235,7 +234,7 @@ class Filled_Form(db.Model):
 
     #Define relationship to Victim
     victim = db.relationship("Victim", backref=db.backref('filled_forms'))
-
+   
     def __repr__(self):
         """Provide helpful representation when printed."""
 
@@ -249,7 +248,7 @@ class Filled_Form(db.Model):
 
 def connect_to_db(app):
     """Connecting the database to our Flask Application"""
-
+    
     #TODO name our postgres file
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///testdb'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
