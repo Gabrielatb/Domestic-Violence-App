@@ -8,7 +8,20 @@
 <h2>Safety Plan</h2>
 <a href="/safety-plan">View Safety Plan Form</a>
 <h2>Financial Options</h2>
-<a href="/financial">View Victim Compensation Form</a>
+<a href="/financial">View Victim Compensation Form</a><br><br>
+
+{% for advocate in advocates%}
+    {% if login_id == advocate.advocate_login_id%}
+        <h2>Clients</h2>
+        <a href="/advocate">View Clients</a>
+    {% endif %}
+{% endfor %}
+
+
+
+
+
+<!-- if statememt to see if advocate or victim, then inside have or not have html -->
 
 
 {% endblock %}

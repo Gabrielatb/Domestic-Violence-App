@@ -205,8 +205,11 @@ def adocate_view_client_filled_form_content(filled_form_id):
 def homepage():
     """Homepage of domestic violence app"""
 
+    login_id = session.get("login_id")
+    victims = Victim.query.all()
+    advocates = Advocate.query.all()
 
-    return render_template("homepage.html")
+    return render_template("homepage.html", login_id=login_id, victims=victims, advocates=advocates)
 
 
 @app.route('/legal')
