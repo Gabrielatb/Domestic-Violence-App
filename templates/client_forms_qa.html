@@ -2,33 +2,22 @@
 {% block title %} Login{% endblock %}
 {% block body %}
 
-<h1>Clients' Filled Out Forms</h1>
+<h1>Questions and Answers</h1>
 
- Clients<br>
-<ul>
 
-    <!-- TODO need a nested for loop-->
 
-{% for victim in victims %} 
-    <br><b>{{victim.login.name}}:<br></b>
-    {% for f in filled_forms[loop.index0] %}
-        {{f.form.form_name}}<br>
+
+
+
+{% for filled_form in filled_forms_list %}
+
+    {% for question in filled_form.form.question %}
+        </li>{{question.question_text}}</li>
+        <li>{{filled_form.answer[loop.index0].answer_text}}</li>
+        <hr/>
     {% endfor %}
+
 {% endfor %}
-
-
-<!-- currently looping through the form -->
-<!-- loop through the forms
-                                    filled_form.form.form_name -->
-
-
-
-
-
-</ul>
-    
-
-
 
 
 {% endblock %}

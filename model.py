@@ -25,10 +25,10 @@ class Question(db.Model):
     question_text = db.Column(db.String(500), nullable=False)
     question_number = db.Column(db.Integer, nullable=False)
     section_number = db.Column(db.Integer, nullable=False)
-    answer_required = db.Column(db.Boolean, default=True, nullable=False)   #change variable name required 
+    answer_required = db.Column(db.Boolean, default=True, nullable=False)   
 
     form = db.relationship("Form",
-                           backref=db.backref("answer"))
+                           backref=db.backref("question"))
 
 
 

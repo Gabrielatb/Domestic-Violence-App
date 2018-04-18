@@ -44,9 +44,9 @@ def seed_data():
     #creating victim
     victim_1 = Victim(login=login_2, advocate=advocate_1)
 
-    s2 = 'Monday, January 01, 2018'
-    safety_plan_filled_form = Filled_Form(form=safety_plan_form, victim=victim_1,
-                                          time_filled=datetime.strptime(s2, "%A, %B %d, %Y"))
+    # s2 = 'Monday, January 01, 2018'
+    # safety_plan_filled_form = Filled_Form(form=safety_plan_form, victim=victim_1,
+    #                                       time_filled=datetime.strptime(s2, "%A, %B %d, %Y"))
 
 
 # ****************************Safety Plan Form**********************************
@@ -166,7 +166,7 @@ def seed_data():
                         # answer_1, answer_2, answer_3, answer_4, answer_5,
                         # answer_6, answer_7, answer_8, answer_9, answer_10,
                         # answer_11, answer_12, 
-                        safety_plan_filled_form,
+                        # safety_plan_filled_form,
 
                         login_1, login_2, agency_type_1,
                         agency_1, shelter_information_1, 
@@ -449,9 +449,9 @@ def seed_data():
 
     # #TO DO: SEE if can use timestamp in order to see the time the form was sent
     # #creating filled victim compensation form
-    s2 = 'Monday, January 01, 2018'
-    victim_comp_filled_form = Filled_Form(form=victim_comp_form, victim=victim_1,
-                                          time_filled=datetime.strptime(s2, "%A, %B %d, %Y"))
+    # s2 = 'Monday, January 01, 2018'
+    # victim_comp_filled_form = Filled_Form(form=victim_comp_form, victim=victim_1,
+    #                                       time_filled=datetime.strptime(s2, "%A, %B %d, %Y"))
 
     # #creating answers for safety plan filled form
     # answer_1 = Answer(question=question_1, answer_text="Answer text 1",
@@ -567,7 +567,7 @@ def seed_data():
                         # answer_6, answer_7, answer_8, answer_9, answer_10,
                         # answer_42,
 
-                        victim_comp_form, victim_comp_filled_form
+                        victim_comp_form#, victim_comp_filled_form
                             ])
                         
 

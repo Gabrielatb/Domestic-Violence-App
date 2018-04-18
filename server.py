@@ -177,8 +177,8 @@ def advocate_registration_process():
     return redirect("/")
 
 @app.route('/advocate')
-def adocate_view_client_forms():
-    """Advocates view their clients filled out forms"""
+def adocate_view_client_form_names():
+    """Advocates view their clients filled out form names"""
 
     victims = Victim.query.filter_by(advocate_login_id=session["login_id"]).all()
     filled_forms_list = []
@@ -187,26 +187,24 @@ def adocate_view_client_forms():
         filled_forms_list.append(filled_forms)
     print filled_forms_list
 
-    # filled_forms = Filled_Form.query.all()
-
-    #    <!-- {% for victim in victims %}
-    # <br><b>{{victim.login.name}}:<br></b> -->
-
-    #victim --> Filled Form(for each victim) --> Form name --> Questions --> Answers-->
-
-
-    # answers = Answer.query.filter_by(filled_form_id=)
-    #all victims appear for the advocate
-    #all the victims filled out forms appear with a link
-    #advocate will click the link and be able to see all answers of victims
 
     return render_template("advocate_view_forms.html", victims=victims, filled_forms=filled_forms_list)
 
 
+@app.route('/advocate/<int:filled_form_id>')
+def adocate_view_client_filled_form_content(filled_form_id):
+    """Advocates view their clients' questions and answers from filled_forms"""
+
+    filled_forms_list = Filled_Form.query.filter_by(filled_form_id=filled_form_id).all()
+
+
+
+    return render_template("client_forms_qa.html", filled_forms_list=filled_forms_list)
 
 @app.route('/welcome')
 def homepage():
     """Homepage of domestic violence app"""
+
 
     return render_template("homepage.html")
 
@@ -273,7 +271,10 @@ def victim_comp_process():
 def shelter():
     """Information about shelter and shelter availability """
 
-    return render_template("shelter.html")
+    shelter = Shelter_Information.query.first()
+    print shelter
+
+    return render_template("shelter.html", shelter=shelter)
 
 
 @app.route("/safety-plan")
