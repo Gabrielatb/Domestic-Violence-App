@@ -3,6 +3,8 @@
 
 from jinja2 import StrictUndefined
 import datetime
+import os
+import requests
 from flask import Flask, render_template, redirect, request, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from model import Question, Form, Answer, Agency, Shelter_Information, Login
@@ -15,10 +17,8 @@ app = Flask(__name__)
 #need app.secret_key if we want to use Flask session and the debug toolbar
 app.secret_key = "123"
 
-# BACKGROUNDCHECK_TOKEN = os.environ.get('BACKGROUNDCHECK_APP_ID')
-
-# #api request endpoint
-# BACKGROUNDCHECK_URL = 'http://apijson.backgroundcheckapi.com/'
+# BACKGROUNDCHECK_APP_ID = os.environ.get('BACKGROUNDCHECK_APP_ID')
+# BACKGROUNDCHECK_KEY = os.environ.get('BACKGROUNDCHECK_KEY')
 
 
 #undefined variables in Jinja2 will fail without notifing, so
@@ -211,15 +211,46 @@ def homepage():
 
     return render_template("homepage.html", login_id=login_id, victims=victims, advocates=advocates)
 
-
 @app.route('/legal')
 def legal_advocacy():
+
+    return render_template("legal_advocacy.html")
+
+@app.route('/legal-background', methods=["GET"])
+def legal_advocacy_search():
     """Legal Advocacy page: search for offenders with criminal background check
         API."""
 
-        
+    fname = request.args.get('fname')
+    lname = request.args.get('lname')
+    mname = request.args.get('mname')
+    state = request.args.get('state')
+    county = request.args.get('county')
+    city = request.args.get('city')
+    birthyear = request.args.get('birthyear')
 
-    return render_template("legal_advocacy.html")
+
+    params = {'App_ID': "pra-14e84234",
+                'App_Key': "106f579b076a9da9e37cee60bc750dd4",
+                'Timestamp': datetime.datetime.now(),
+                'catalogue': "BACKGROUND",
+                'FirstName': fname,
+                'LastName': lname,
+                'MiddleName': mname,
+                'state': state,
+                'county': county,
+                'city': city,
+                'birthyear': birthyear,
+                'CrimeType': '',
+                'ExactMatch': ""}
+
+    r = requests.get('http://apijson.backgroundcheckapi.com/', params=params)
+    print r.url
+    data = r.json()
+    print data
+
+
+    return render_template("legal_results.html", data=data)
 
 
 @app.route("/financial")
