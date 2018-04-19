@@ -3,3 +3,16 @@ Flask-DebugToolbar==0.10.1
 Flask-SQLAlchemy==2.2
 psycopg2==2.7.1
 SQLAlchemy==1.1.7
+
+
+blinker==1.4
+certifi==2017.4.17
+chardet==3.0.4
+click==6.7
+idna==2.5
+itsdangerous==0.24
+Jinja2==2.9.6
+MarkupSafe==1.0
+requests==2.18.1
+urllib3==1.21.1
+Werkzeug==0.12.2

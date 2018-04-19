@@ -17,9 +17,10 @@ app = Flask(__name__)
 #need app.secret_key if we want to use Flask session and the debug toolbar
 app.secret_key = "123"
 
-# BACKGROUNDCHECK_APP_ID = os.environ.get('BACKGROUNDCHECK_APP_ID')
-# BACKGROUNDCHECK_KEY = os.environ.get('BACKGROUNDCHECK_KEY')
-
+BACKGROUNDCHECK_APP_ID = os.environ['BACKGROUNDCHECK_APP_ID']
+# print BACKGROUNDCHECK_APP_ID
+BACKGROUNDCHECK_KEY = os.environ.get('BACKGROUNDCHECK_KEY')
+# print BACKGROUNDCHECK_KEY
 
 #undefined variables in Jinja2 will fail without notifing, so
 #StrictUndefined will allow Jinja2 to raise an error for undef variables
@@ -230,8 +231,8 @@ def legal_advocacy_search():
     birthyear = request.args.get('birthyear')
 
 
-    params = {'App_ID': "pra-14e84234",
-                'App_Key': "106f579b076a9da9e37cee60bc750dd4",
+    params = {'App_ID': BACKGROUNDCHECK_APP_ID,
+                'App_Key': BACKGROUNDCHECK_KEY,
                 'Timestamp': datetime.datetime.now(),
                 'catalogue': "BACKGROUND",
                 'FirstName': fname,
@@ -245,12 +246,43 @@ def legal_advocacy_search():
                 'ExactMatch': ""}
 
     r = requests.get('http://apijson.backgroundcheckapi.com/', params=params)
-    print r.url
+    # print r.url
     data = r.json()
-    print data
+    # print data['response']
 
+    profile_list_dict = []
+    for response in data['response']:
+        # print response
+        profile_dict = {}
 
-    return render_template("legal_results.html", data=data)
+        profile_dict["First Name"] = response.get('FirstName', "Not Found")
+        profile_dict["Last Name"] = response.get('LastName', "Not Found")
+        profile_dict["Date of Birth"] = response.get('DateOfBirth', "Not Found")
+        profile_dict["State"] = response.get('State', "Not Found")
+        profile_dict["Bond Amount"] = response.get('BondAmount', "Not Found")
+        profile_dict["Type"] = response.get('Type', "Not Found")
+        profile_dict["Year of Booking"] = response.get('YearOfBooking', "Not Found")
+        profile_dict["Entry Date"] = response.get('EntryDate', "Not Found")
+        profile_dict["Status"] = response.get('BCType', "Not Found")
+        profile_dict["Gender"] = response.get('Gender', "Not Found")
+        profile_dict["Age"] = response.get('Age', "Not Found")
+        profile_dict["Released Date"] = response.get('ReseasedDate', "Not Found")
+        profile_dict["Birth Year"] = response.get('BirthYear', "Not Found")
+        profile_dict["Race"] = response.get('Race', "Not Found")
+        profile_dict["Booking Date"] = response.get('BookingDate', "Not Found")
+        profile_dict["Booking Number"] = response.get('BookingNo', "Not Found")
+        profile_dict["Case History"] = response.get('CaseHistory', "Not Found")
+        profile_dict["County"] = response.get('County', "Not Found")
+        profile_dict["Photo"] = response.get('PHOTO', "Not Found")
+        profile_dict["Current Status"] = response.get('CurrentStatus', "Not Found")
+        profile_dict["Offence"] = response.get('Offence', "Not Found")
+         # print profile
+
+    profile_list_dict.append(profile_dict)
+    # print profile
+
+    # return 'cool'
+    return render_template("legal_results.html", profile_list_dict=profile_list_dict)
 
 
 @app.route("/financial")
