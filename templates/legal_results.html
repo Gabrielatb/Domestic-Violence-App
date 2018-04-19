@@ -2,18 +2,19 @@
 {% block title %} Legal {% endblock %}
 {% block body %}
 
-<h1>Legal Advocacy Results</h1>.
+<h1>Legal Advocacy Results</h1>
+
+
 
 {% for profile_dict in profile_list_dict %}
     {% for key in profile_dict %}
         <b>{{key}}:</b> {{ profile_dict[key]}}<br>
-{% endfor %}
+{% endfor %}<br>
 
     {% endfor %}
 
 
 
-    <br><br><br>
 
 
 

@@ -278,7 +278,8 @@ def legal_advocacy_search():
         profile_dict["Offence"] = response.get('Offence', "Not Found")
          # print profile
 
-    profile_list_dict.append(profile_dict)
+        profile_list_dict.append(profile_dict)
+    print profile_list_dict
     # print profile
 
     # return 'cool'
