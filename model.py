@@ -25,10 +25,10 @@ class Question(db.Model):
     question_text = db.Column(db.String(500), nullable=False)
     question_number = db.Column(db.Integer, nullable=False)
     section_number = db.Column(db.Integer, nullable=False)
-    answer_required = db.Column(db.Boolean, default=True, nullable=False)   #change variable name required 
+    answer_required = db.Column(db.Boolean, default=True, nullable=False)
 
     form = db.relationship("Form",
-                           backref=db.backref("answer"))
+                           backref=db.backref("questions"))
 
 
 
@@ -72,10 +72,10 @@ class Answer(db.Model):
 
     #Define relationship to Question
     question = db.relationship("Question",
-                               backref=db.backref("answer"))
+                               backref=db.backref("answers"))
 
     filled_form = db.relationship("Filled_Form",
-                                  backref=db.backref("answer"))
+                                  backref=db.backref("answers"))
     
                                              
 
@@ -183,7 +183,7 @@ class Victim(db.Model):
     """Victim information and relationship to which advocate"""
 
 
-    __tablename__ = "victims"
+    __tablename__ = "victim"
 
     victim_login_id = db.Column(db.Integer, db.ForeignKey('login.login_id'),
                                     primary_key=True)
@@ -218,15 +218,15 @@ class Agency_Type(db.Model):
         return "<Agency type ID: {}, agency type: {}>".format(self.agency_type_id,
                                                self.agency_type)
 
+
 class Filled_Form(db.Model):
     """Information on which answers where answered on which form and by which victim."""
-
 
     __tablename__ = "filled_forms"
 
     filled_form_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     form_id = db.Column(db.Integer, db.ForeignKey('forms.form_id'))
-    victim_login_id = db.Column(db.Integer, db.ForeignKey('victims.victim_login_id'))
+    victim_login_id = db.Column(db.Integer, db.ForeignKey('victim.victim_login_id'))
     time_filled = db.Column(db.DateTime, nullable=True)
 
     #Define relationship to Form
@@ -250,9 +250,9 @@ def connect_to_db(app):
     """Connecting the database to our Flask Application"""
     
     #TODO name our postgres file
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///testdb'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///projectdb'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    db.app= app
+    db.app = app
     db.init_app(app)
 
 if __name__ == "__main__":

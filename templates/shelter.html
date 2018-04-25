@@ -18,6 +18,7 @@
 
 {% for advocate in advocates%}
     {% if login_id == advocate.advocate_login_id%}
+    <!-- if true then show this information -->
         <form action="/shelter" method="POST"><br><br><br><br><br>
             <b>Please Edit Shelter Status Below</b><br><br>
             Number of beds available: <input type="text" name="number_available_beds"><br>

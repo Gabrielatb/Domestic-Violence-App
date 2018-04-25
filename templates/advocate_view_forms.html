@@ -11,7 +11,7 @@
 
 {% for victim in victims %} 
     <br><b>{{victim.login.name}}:<br></b>
-    {% for filled_form in filled_forms[loop.index0] %}
+    {% for filled_form in victim.filled_forms %}
         <li><a href="/advocate/{{filled_form.filled_form_id}}">{{filled_form.form.form_name}}</a></li>
     {% endfor %}
 {% endfor %}

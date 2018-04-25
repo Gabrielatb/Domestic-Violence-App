@@ -10,7 +10,7 @@ from datetime import datetime
 
 ##############################################################################
 
-def seed_data():
+def test_seed_data():
     """Seeding questions from Question class into database"""
 
     print "Seed Complete."
@@ -36,7 +36,6 @@ def seed_data():
     s1 = 'Monday, February 01, 2018'
     shelter_information_1 = Shelter_Information(agency=agency_1, number_beds=42,
                                                 next_available_date=datetime.strptime(s1, "%A, %B %d, %Y"))
-                                  
 
     #creating advocate
     advocate_1 = Advocate(login=login_1, shelter_information=shelter_information_1,
@@ -44,16 +43,17 @@ def seed_data():
     #creating victim
     victim_1 = Victim(login=login_2, advocate=advocate_1)
 
-    # # s2 = 'Monday, January 01, 2018'
-    # safety_plan_filled_form = Filled_Form(form=safety_plan_form, victim=victim_1,
-    # #                                       time_filled=datetime.strptime(s2, "%A, %B %d, %Y"))
+
+    s2 = 'Monday, January 01, 2019'
+    safety_plan_filled_form = Filled_Form(form=safety_plan_form, victim=victim_1,
+                                          time_filled=datetime.strptime(s2, "%A, %B %d, %Y"))
 
 
 # ****************************Safety Plan Form**********************************
 
     # A "Yes" response to any of Questions #1-3 automatically triggers the protocol referral.
     question_1 = Question(question_text="""Has he/she ever used a weapon against
-                          you/threatened you with a weapon?""",
+                          you/threatened you with a weapon""",
                           question_number=1,
                           section_number=1,
                           answer_required=True,
@@ -66,7 +66,7 @@ def seed_data():
                           answer_required=True,
                           form=safety_plan_form)
 
-    question_3 = Question(question_text="""Do you think he/she might try to kill you?""",
+    question_3 = Question(question_text="Do you think he/she might try to kill you?",
                           question_number=3,
                           section_number=1,
                           answer_required=True,
@@ -132,30 +132,30 @@ def seed_data():
 
 
     #creating answers for safety plan filled form
-    # answer_1 = Answer(question=question_1, answer_text=answer_text,
-    #                   filled_form=safety_plan_filled_form)
-    # answer_2 = Answer(question=question_2, answer_text=answer_text,
-    #                   filled_form=safety_plan_filled_form)
-    # answer_3 = Answer(question=question_3, answer_text=answer_text,
-    #                   filled_form=safety_plan_filled_form)
-    # answer_4 = Answer(question=question_4, answer_text=answer_text,
-    #                   filled_form=safety_plan_filled_form)
-    # answer_5 = Answer(question=question_5, answer_text=answer_text,
-    #                   filled_form=safety_plan_filled_form)
-    # answer_6 = Answer(question=question_6, answer_text=answer_text,
-    #                   filled_form=safety_plan_filled_form)
-    # answer_7 = Answer(question=question_7, answer_text=answer_text,
-    #                   filled_form=safety_plan_filled_form)
-    # answer_8 = Answer(question=question_8, answer_text=answer_text,
-    #                   filled_form=safety_plan_filled_form)
-    # answer_9 = Answer(question=question_9, answer_text=answer_text,
-    #                   filled_form=safety_plan_filled_form)
-    # answer_10 = Answer(question=question_10, answer_text=answer_text,
-    #                    filled_form=safety_plan_filled_form)
-    # answer_11 = Answer(question=question_11, answer_text=answer_text,
-    #                    filled_form=safety_plan_filled_form)
-    # answer_12 = Answer(question=question_12, answer_text=answer_text,
-    #                    filled_form=safety_plan_filled_form)
+    answer_1 = Answer(question=question_1, answer_text='yes',
+                      filled_form=safety_plan_filled_form)
+    answer_2 = Answer(question=question_2, answer_text='no',
+                      filled_form=safety_plan_filled_form)
+    answer_3 = Answer(question=question_3, answer_text='yes',
+                      filled_form=safety_plan_filled_form)
+    answer_4 = Answer(question=question_4, answer_text='no',
+                      filled_form=safety_plan_filled_form)
+    answer_5 = Answer(question=question_5, answer_text='yes',
+                      filled_form=safety_plan_filled_form)
+    answer_6 = Answer(question=question_6, answer_text='no',
+                      filled_form=safety_plan_filled_form)
+    answer_7 = Answer(question=question_7, answer_text='yes',
+                      filled_form=safety_plan_filled_form)
+    answer_8 = Answer(question=question_8, answer_text='no',
+                      filled_form=safety_plan_filled_form)
+    answer_9 = Answer(question=question_9, answer_text='yes',
+                      filled_form=safety_plan_filled_form)
+    answer_10 = Answer(question=question_10, answer_text='no',
+                       filled_form=safety_plan_filled_form)
+    answer_11 = Answer(question=question_11, answer_text='yes',
+                       filled_form=safety_plan_filled_form)
+    answer_12 = Answer(question=question_12, answer_text="Im ok",
+                       filled_form=safety_plan_filled_form)
 
     db.session.add_all([safety_plan_form,
                         #Questions to Safety Plan Form 
@@ -163,11 +163,10 @@ def seed_data():
                         question_5, question_6, question_7, question_8,
                         question_9, question_10, question_11, question_12,
                         #Answers to Safety Plan Form 
-                        # answer_1, answer_2, answer_3, answer_4, answer_5,
-                        # answer_6, answer_7, answer_8, answer_9, answer_10,
-                        # answer_11, answer_12, 
-                        # safety_plan_filled_form,
-
+                        answer_1, answer_2, answer_3, answer_4, answer_5,
+                        answer_6, answer_7, answer_8, answer_9, answer_10,
+                        answer_11, answer_12, 
+                        safety_plan_filled_form,
                         login_1, login_2, agency_type_1,
                         agency_1, shelter_information_1, 
                         advocate_1, victim_1])
@@ -449,95 +448,95 @@ def seed_data():
 
     # #TO DO: SEE if can use timestamp in order to see the time the form was sent
     # #creating filled victim compensation form
-    # s2 = 'Monday, January 01, 2018'
-    # victim_comp_filled_form = Filled_Form(form=victim_comp_form, victim=victim_1,
-    #                                       time_filled=datetime.strptime(s2, "%A, %B %d, %Y"))
+    s2 = 'Monday, January 01, 2018'
+    victim_comp_filled_form = Filled_Form(form=victim_comp_form, victim=victim_1,
+                                          time_filled=datetime.strptime(s2, "%A, %B %d, %Y"))
 
     # #creating answers for safety plan filled form
-    # answer_1 = Answer(question=question_1, answer_text="Answer text 1",
-    #                   filled_form=victim_comp_filled_form)
-    # answer_2 = Answer(question=question_2, answer_text="Answer text 2",
-    #                   filled_form=victim_comp_filled_form)
-    # answer_3 = Answer(question=question_3, answer_text="Answer text 3",
-    #                   filled_form=victim_comp_filled_form)
-    # answer_4 = Answer(question=question_4, answer_text="Answer text 4",
-    #                   filled_form=victim_comp_filled_form)
-    # answer_5 = Answer(question=question_5, answer_text="Answer text 5",
-    #                   filled_form=victim_comp_filled_form)
-    # answer_6 = Answer(question=question_6, answer_text="Answer text 6",
-    #                   filled_form=victim_comp_filled_form)
-    # answer_7 = Answer(question=question_7, answer_text="Answer text 7",
-    #                   filled_form=victim_comp_filled_form)
-    # answer_8 = Answer(question=question_8, answer_text="Answer text 8",
-    #                   filled_form=victim_comp_filled_form)
-    # answer_9 = Answer(question=question_9, answer_text="Answer text 9",
-    #                   filled_form=victim_comp_filled_form)
-    # answer_10 = Answer(question=question_10, answer_text="Answer text 10",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_11 = Answer(question=question_11, answer_text="Answer text 11",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_12 = Answer(question=question_12, answer_text="Answer text 12",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_13 = Answer(question=question_13, answer_text="Answer text 13",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_14 = Answer(question=question_14, answer_text="Answer text 14",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_15 = Answer(question=question_15, answer_text="Answer text 15",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_16 = Answer(question=question_16, answer_text="Answer text 16",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_17 = Answer(question=question_17, answer_text="Answer text 17",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_18 = Answer(question=question_18, answer_text="Answer text 18",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_19 = Answer(question=question_19, answer_text="Answer text 19",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_20 = Answer(question=question_20, answer_text="Answer text 20",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_21 = Answer(question=question_21, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_22 = Answer(question=question_22, answer_text="Answer text 22",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_23 = Answer(question=question_23, answer_text="Answer text 23",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_24 = Answer(question=question_24, answer_text="Answer text 24",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_25 = Answer(question=question_25, answer_text="Answer text 25",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_26 = Answer(question=question_26, answer_text="Answer text 26",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_27 = Answer(question=question_27, answer_text="Answer text 27",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_28 = Answer(question=question_28, answer_text="Answer text 28",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_29 = Answer(question=question_29, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_30 = Answer(question=question_30, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_31 = Answer(question=question_31, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_32 = Answer(question=question_32, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_33 = Answer(question=question_33, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_34 = Answer(question=question_34, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_35 = Answer(question=question_35, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_36 = Answer(question=question_36, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_37 = Answer(question=question_37, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_38 = Answer(question=question_38, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_39 = Answer(question=question_39, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_40 = Answer(question=question_40, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_41 = Answer(question=question_41, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
-    # answer_42 = Answer(question=question_42, answer_text="Answer text 21",
-    #                    filled_form=victim_comp_filled_form)
+    answer_1 = Answer(question=question_1, answer_text="Gabriela Borges",
+                      filled_form=victim_comp_filled_form)
+    answer_2 = Answer(question=question_2, answer_text="Answer text 2",
+                      filled_form=victim_comp_filled_form)
+    answer_3 = Answer(question=question_3, answer_text="Answer text 3",
+                      filled_form=victim_comp_filled_form)
+    answer_4 = Answer(question=question_4, answer_text="Answer text 4",
+                      filled_form=victim_comp_filled_form)
+    answer_5 = Answer(question=question_5, answer_text="Answer text 5",
+                      filled_form=victim_comp_filled_form)
+    answer_6 = Answer(question=question_6, answer_text="Answer text 6",
+                      filled_form=victim_comp_filled_form)
+    answer_7 = Answer(question=question_7, answer_text="Answer text 7",
+                      filled_form=victim_comp_filled_form)
+    answer_8 = Answer(question=question_8, answer_text="Answer text 8",
+                      filled_form=victim_comp_filled_form)
+    answer_9 = Answer(question=question_9, answer_text="Answer text 9",
+                      filled_form=victim_comp_filled_form)
+    answer_10 = Answer(question=question_10, answer_text="Answer text 10",
+                       filled_form=victim_comp_filled_form)
+    answer_11 = Answer(question=question_11, answer_text="Answer text 11",
+                       filled_form=victim_comp_filled_form)
+    answer_12 = Answer(question=question_12, answer_text="Answer text 12",
+                       filled_form=victim_comp_filled_form)
+    answer_13 = Answer(question=question_13, answer_text="Answer text 13",
+                       filled_form=victim_comp_filled_form)
+    answer_14 = Answer(question=question_14, answer_text="Answer text 14",
+                       filled_form=victim_comp_filled_form)
+    answer_15 = Answer(question=question_15, answer_text="Answer text 15",
+                       filled_form=victim_comp_filled_form)
+    answer_16 = Answer(question=question_16, answer_text="Answer text 16",
+                       filled_form=victim_comp_filled_form)
+    answer_17 = Answer(question=question_17, answer_text="Answer text 17",
+                       filled_form=victim_comp_filled_form)
+    answer_18 = Answer(question=question_18, answer_text="Answer text 18",
+                       filled_form=victim_comp_filled_form)
+    answer_19 = Answer(question=question_19, answer_text="Answer text 19",
+                       filled_form=victim_comp_filled_form)
+    answer_20 = Answer(question=question_20, answer_text="Answer text 20",
+                       filled_form=victim_comp_filled_form)
+    answer_21 = Answer(question=question_21, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_22 = Answer(question=question_22, answer_text="Answer text 22",
+                       filled_form=victim_comp_filled_form)
+    answer_23 = Answer(question=question_23, answer_text="Answer text 23",
+                       filled_form=victim_comp_filled_form)
+    answer_24 = Answer(question=question_24, answer_text="Answer text 24",
+                       filled_form=victim_comp_filled_form)
+    answer_25 = Answer(question=question_25, answer_text="Answer text 25",
+                       filled_form=victim_comp_filled_form)
+    answer_26 = Answer(question=question_26, answer_text="Answer text 26",
+                       filled_form=victim_comp_filled_form)
+    answer_27 = Answer(question=question_27, answer_text="Answer text 27",
+                       filled_form=victim_comp_filled_form)
+    answer_28 = Answer(question=question_28, answer_text="Answer text 28",
+                       filled_form=victim_comp_filled_form)
+    answer_29 = Answer(question=question_29, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_30 = Answer(question=question_30, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_31 = Answer(question=question_31, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_32 = Answer(question=question_32, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_33 = Answer(question=question_33, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_34 = Answer(question=question_34, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_35 = Answer(question=question_35, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_36 = Answer(question=question_36, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_37 = Answer(question=question_37, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_38 = Answer(question=question_38, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_39 = Answer(question=question_39, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_40 = Answer(question=question_40, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_41 = Answer(question=question_41, answer_text="Answer text 21",
+                       filled_form=victim_comp_filled_form)
+    answer_42 = Answer(question=question_42, answer_text="04/24/2018",
+                       filled_form=victim_comp_filled_form)
 
 
 
@@ -557,24 +556,17 @@ def seed_data():
                         question_36, question_37, question_38, question_39, question_40, question_41,
                         question_42, question_43, 
                         #Answers to Victim Compensation Form
-                        # answer_1, answer_2, answer_3, answer_4, answer_5,
-                        # answer_6, answer_7, answer_8, answer_9, answer_10,
-                        # answer_11, answer_12, answer_13, answer_14, answer_15, answer_16, answer_17,
-                        # answer_18, answer_19, answer_20, answer_21, answer_22,
-                        # answer_23, answer_24, answer_25, answer_26, answer_27, answer_28, answer_29,
-                        # answer_30, answer_31, answer_32, answer_33, answer_34,
-                        # answer_35, answer_36, answer_37, answer_38, answer_39, answer_40, answer_41,
-                        # answer_6, answer_7, answer_8, answer_9, answer_10,
-                        # answer_42,
-
-                        victim_comp_form#, victim_comp_filled_form
-                            ])
+                        answer_1, answer_2, answer_3, answer_4, answer_5,
+                        answer_6, answer_7, answer_8, answer_9, answer_10,
+                        answer_11, answer_12, answer_13, answer_14, answer_15, answer_16, answer_17,
+                        answer_18, answer_19, answer_20, answer_21, answer_22,
+                        answer_23, answer_24, answer_25, answer_26, answer_27, answer_28, answer_29,
+                        answer_30, answer_31, answer_32, answer_33, answer_34,
+                        answer_35, answer_36, answer_37, answer_38, answer_39, answer_40, answer_41,
+                        answer_6, answer_7, answer_8, answer_9, answer_10,
+                        answer_42, victim_comp_form, victim_comp_filled_form])
+                            
                         
-
-
-
-                
-
     #commiting objects
     db.session.commit()
 
@@ -589,5 +581,4 @@ if __name__ == "__main__":
     db.create_all()
 
     #importing data
-    seed_data()
-
+    test_seed_data()

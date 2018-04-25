@@ -3,21 +3,10 @@
 {% block body %}
 
 <h1>Questions and Answers</h1>
-
-
-
-
-
-
-{% for filled_form in filled_forms_list %}
-
-    {% for question in filled_form.form.question %}
-        </li>{{question.question_text}}</li>
-        <li>{{filled_form.answer[loop.index0].answer_text}}</li>
+    {% for answer in filled_form.answers %}
+        <li>{{answer.question.question_text}}</li>
+        <li>{{answer.answer_text}}</li>
         <hr/>
     {% endfor %}
-
-{% endfor %}
-
 
 {% endblock %}

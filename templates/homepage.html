@@ -14,8 +14,9 @@
 <h2>Legal Advocacy</h2>
 <a href="/legal">Criminal Record Search</a><br><br>
 
-
-{% for advocate in advocates%}
+<!-- TODO: post route for act of logging in 
+one time if statement session.get() -->
+{% for advocate in advocates %}
     {% if login_id == advocate.advocate_login_id%}
         <h2>Clients</h2>
         <a href="/advocate">View Clients</a>

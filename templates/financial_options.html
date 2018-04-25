@@ -14,22 +14,20 @@
 
 <h2>Victim Compensation Application</h2>
 <ol>
+
 {% for question in questions[0] %}
     <li>
     {{question.question_text}}<br>
     <input type='text' name="section_1_{{question.question_number}}">
-    {% endfor %}
-
     </li>
+    {% endfor %}
     
-
 {% for question in questions[1] %}
     <li>
     {{question.question_text}}<br>
     <input type='text' name="section_2_{{question.question_number}}">
-    {% endfor %}
-
     </li>
+    {% endfor %}
 
 
 {% for question in questions[2] %}
@@ -44,16 +42,18 @@
     {{question.question_text}}<br>
 <input type='text' name="section_4_{{question.question_number}}">
     </li>
-{% endfor %}
+    {% endfor %}
 
 {% for question in questions[4] %}
     <li>
     {{question.question_text}}<br>
 <input type='text' name="section_5_{{question.question_number}}">
     </li>
-{% endfor %}
+    {% endfor %}
+
 
 <input id='submit' type='submit'>
+</ol>
 </form>
 
 
