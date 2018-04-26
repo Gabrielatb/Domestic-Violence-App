@@ -195,7 +195,7 @@ def adocate_view_client_filled_form_content(filled_form_id):
 
     filled_form = Filled_Form.query.get(filled_form_id)
     # print filled_form
-    
+
     return render_template("client_forms_qa.html", filled_form=filled_form)
 
 
@@ -312,7 +312,7 @@ def safety_plan_process():
 
     db.session.commit()
 
-    flash("You have successfully submitted your safety plan")
+    flash("You have successfully submitted your Safety Plan Form")
     return redirect('/welcome')
 
 
@@ -349,6 +349,12 @@ def legal_advocacy():
 
     return render_template("legal_advocacy.html")
 
+def get_api_data(params):
+    r = requests.get('http://apijson.backgroundcheckapi.com/', params=params)
+    # print r.url
+    data = r.json()
+    return data['response']
+
 
 @app.route('/legal-background', methods=["GET"])
 def legal_advocacy_search():
@@ -377,13 +383,12 @@ def legal_advocacy_search():
                 'CrimeType': '',
                 'ExactMatch': ""}
 
-    r = requests.get('http://apijson.backgroundcheckapi.com/', params=params)
-    # print r.url
-    data = r.json()
-    # print data['response']
-
+    data = get_api_data(params)
+    print(data)
+    print(type(data))
+    
     profile_list_dict = []
-    for response in data['response']:
+    for response in data:
         profile_dict = {}
         # TODO static dictionary key-what i callit, value-what api calls it
         profile_dict["First Name"] = response.get('FirstName', "Not Found")

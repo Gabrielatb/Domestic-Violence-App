@@ -453,7 +453,7 @@ def test_seed_data():
                                           time_filled=datetime.strptime(s2, "%A, %B %d, %Y"))
 
     # #creating answers for safety plan filled form
-    answer_1 = Answer(question=question_1, answer_text="Gabriela Borges",
+    answer_1 = Answer(question=question_1, answer_text="Sarah Smith",
                       filled_form=victim_comp_filled_form)
     answer_2 = Answer(question=question_2, answer_text="Answer text 2",
                       filled_form=victim_comp_filled_form)
