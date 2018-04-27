@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% block title %} Login{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+
 {% block body %}
+
+<!-- <input type='text' size='50' onkeydown="keyCode(event)"> -->
 
 <h1>Login</h1>
 <form action="/login" method="POST">
@@ -22,5 +30,6 @@
 
 If you are a new user. Create your profile by clicking below: <br>
 <a href='/register'>Create Profile</a>
+
 
 {% endblock %}

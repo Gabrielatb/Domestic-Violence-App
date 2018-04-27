@@ -565,8 +565,8 @@ def test_seed_data():
                         answer_35, answer_36, answer_37, answer_38, answer_39, answer_40, answer_41,
                         answer_6, answer_7, answer_8, answer_9, answer_10,
                         answer_42, victim_comp_form, victim_comp_filled_form])
-                            
-                        
+
+
     #commiting objects
     db.session.commit()
 

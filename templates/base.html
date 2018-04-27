@@ -2,9 +2,25 @@
 <html>
 <head>
     <title> {% block title %}{% endblock %}</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<style class="iframe" type="text/css">
+        body, html
+        {
+            margin: 0; padding: 0; height: 100%; overflow: hidden;
+        }
+</style>
+
+{% block style %}
+{% endblock %}
 
 </head>
-    <body>
+<body>
+
+<div><button id="escape_button" size ='50'>Esc</button></div>
+
+<iframe class= "iframe"id="myiframe" title="wikipedia" src="https://en.wikipedia.org/wiki" width="100%" height="100%" style='display:none'></iframe>
+
 
     {% if "login_id" in session %}
     <a href="/logout">Logout</a>
@@ -14,8 +30,10 @@
     {% for flash in get_flashed_messages() %}
         {{ flash }}
     {% endfor %}
-
-    {% block body %}
-    {% endblock %}
-    </body>
+{% block body %}
+{% endblock %}
+<script src="static/js/base.js"></script>
+</body>
 </html>
+
+

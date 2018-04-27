@@ -218,17 +218,14 @@ class AdvocateLoggedIn(unittest.TestCase):
     def test_legal_post_client(self):
         """Test if advocate can accurately search for defendant on legal page"""
 
-        result = self.client.get("/legal-background",
-                                  data={"fname": "",
-                                        "lname": "Ryan",
-                                        "mname": "",
-                                        "state": "",
-                                        "county": "",
-                                        "city": "",
-                                        "birthyear": ""})                                     
+        result = self.client.get("/legal-background?fname=&lname=Ryan&mname=&state=&county=&city=&birthyear=")
         self.assertEqual(result.status_code, 200)
-        self.assertIn("<b>First Name:</b> DENNIS<br>", result.data)
-
+        self.assertIn("<b>County:</b> Baldwin<br>", result.data)
+        self.assertIn("<b>Last Name:</b> RYAN<br>", result.data)
+        self.assertIn("<b>Date of Birth:</b> 7/30/1981<br>", result.data)
+        self.assertIn("<b>Age:</b> 27<br>", result.data)
+        self.assertIn("<b>Photo:</b> http://pixialiate.backgroundcheckapi.com/photo@alabama@baldwin@1877384-23981476.jpg<br>", result.data)
+        self.assertIn("<b>Released Date:</b> 11/3/2012 10:08:00 AM<br>", result.data)
 
     def tearDown(self):
         """Todo after each test."""
@@ -393,7 +390,10 @@ class VictimLoggedIn(unittest.TestCase):
                                         "city": "",
                                         "birthyear": ""})
         self.assertEqual(result.status_code, 200)
-        self.assertIn("<b>First Name:</b> CHANTELL MORNEAK<br>", result.data)
+        self.assertIn("<b>Status:</b> Released Inmate<br>", result.data)
+        self.assertIn("<b>Case History:</b> null<br>", result.data)
+        self.assertIn("<b>Entry Date:</b> 2017-03-23 22:36:50<br>", result.data)
+        self.assertIn("<b>County:</b> Douglas<br>", result.data)
 
     def tearDown(self):
         """Todo after each test."""
