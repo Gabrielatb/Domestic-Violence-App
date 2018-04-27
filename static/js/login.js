@@ -1,21 +1,4 @@
+$(document).ready(function(){
+    alert("this is a functioning alert message");
 
-
-
-
-
-
-// Iframe escape button
-function toggleEscape() {
-    
-    if ( $("#myiframe").is("#myiframe:visible") ) {
-        $("#myiframe").hide('#myiframe');
-        }
-    else {
-
-        $("#myiframe").show('#myiframe');
-    }
-  
-}
-$("#escape_button").click(toggleEscape);
-
-
+});

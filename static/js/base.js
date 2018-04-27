@@ -10,5 +10,7 @@ function toggleEscape() {
         $("#myiframe").show('#myiframe');
     }
   
+}
+$("#escape_button").click(toggleEscape);
 
 
