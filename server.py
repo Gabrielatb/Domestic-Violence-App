@@ -2,20 +2,21 @@
 
 
 from jinja2 import StrictUndefined
-import datetime
+from datetime import datetime
+import pytz
 import os
 import requests
-from flask import Flask, render_template, redirect, request, session, flash
+from flask import Flask, render_template, redirect, request, session, flash, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from model import Question, Form, Answer, Agency, Shelter_Information, Login
-from model import Advocate, Victim, Agency_Type, Filled_Form
+from model import Advocate, Victim, Agency_Type, Filled_Form, Form_Status
 from model import connect_to_db, db
-
 
 app = Flask(__name__)
 
 #need app.secret_key if we want to use Flask session and the debug toolbar
 app.secret_key = "123"
+
 
 BACKGROUNDCHECK_APP_ID = os.environ['BACKGROUNDCHECK_APP_ID']
 # print BACKGROUNDCHECK_APP_ID
@@ -184,19 +185,65 @@ def adocate_view_client_form_names():
     #TODO advocate object -> advocate.victim
     victims = Victim.query.filter_by(advocate_login_id=session["login_id"]).all()
 
+
 # #       TODO: post route for act of logging in
 # # # one time if statement session.get()
     return render_template("advocate_view_forms.html", victims=victims)
 
 
 @app.route('/advocate/<int:filled_form_id>')
-def adocate_view_client_filled_form_content(filled_form_id):
-    """Advocates view their clients' questions and answers from filled_forms"""
+def adocate_view_client_filled_form(filled_form_id):
+    """Advocates view their clients' questions and answers from filled_forms
+    and updates status of application"""
 
     filled_form = Filled_Form.query.get(filled_form_id)
-    # print filled_form
+    form_status = Form_Status.query.get(filled_form_id)
 
-    return render_template("client_forms_qa.html", filled_form=filled_form)
+    time_status = {}
+    if form_status.app_received is not None:
+        time_status['app_received'] = form_status.app_received.strftime("%A, %d %B %Y %I:%M%p")
+    if form_status.app_pending is not None:
+        time_status['app_pending'] = form_status.app_pending.strftime("%A, %d %B %Y %I:%M%p")
+    if form_status.app_review is not None:
+        time_status['app_review'] = form_status.app_review.strftime("%A, %d %B %Y %I:%M%p")
+    if form_status.app_results is not None:
+        time_status['app_results'] = form_status.app_results
+
+
+    return render_template("client_forms_qa.html", filled_form=filled_form,
+                           time_status = time_status)
+
+
+@app.route('/advocate/<int:filled_form_id>', methods=["POST"])
+def adocate_view_client_filled_form_content(filled_form_id):
+    """Receiving changed status adding to database"""
+
+
+    dropdown = request.form.get("dropdown")
+    print dropdown
+    textbox = request.form.get("textbox")
+    print textbox
+
+    if dropdown == "blank":
+        db.session.query(Form_Status).filter(Form_Status.filled_form_id==filled_form_id).update({'app_results': textbox})
+        db.session.commit()
+        return jsonify(textbox)
+  
+
+    else:
+        eastern = pytz.timezone('US/Eastern')
+        dt = datetime.now(tz=eastern)
+        time_filled=dt.strftime("%A, %d %B %Y %I:%M%p")
+
+        db.session.query(Form_Status).filter(Form_Status.filled_form_id==filled_form_id).update({dropdown: time_filled})
+        db.session.commit()
+        return jsonify(time_filled)
+
+    db.session.commit()
+
+
+
+
 
 
 
@@ -226,9 +273,16 @@ def victim_comp_process():
     form_id = request.form['form_id']
     form = Form.query.get(form_id)
     victim = Victim.query.get(session["login_id"])
-    filled_form = Filled_Form(form=form, victim=victim, time_filled=datetime.datetime.now())
+
+    eastern = pytz.timezone('US/Eastern')
+    dt = datetime.now(tz=eastern)
+    time_filled=dt.strftime("%A, %d %B %Y %I:%M%p")
+
+    filled_form = Filled_Form(form=form, victim=victim, time_filled=time_filled)
+    form_status = Form_Status(filled_form=filled_form, app_received = time_filled)
     #working correctly saving filled_form
     db.session.add(filled_form)
+    db.session.add(form_status)
     # db.session.commit()
 
     #list of question object which shows all questions with form_id 2 meaning all questions asociated with 
@@ -260,20 +314,42 @@ def victim_comp_process():
     db.session.commit()
 
     flash("You have successfully submitted your Victim Compensation Application")
-    return redirect('/welcome')
+    return redirect('/results')
+
+
+@app.route("/results")
+def form_status():
+    """"Status of application"""
+
+    victim_list = Victim.query.filter_by(victim_login_id=session["login_id"]).all()
+
+    return render_template("results.html", victim_list=victim_list)
 
 
 
 # first thing is to get the list of questions, from there associated answer to that question
-# then create answer obeject and associate from filled_form amd question object that you are looping through looping over 
-
+# then create answer obeject and associate from filled_form amd question object that you are looping through looping over
 
     #find out questions need answers form_id to form to questions
     #for each question find answer from the form in the question
 
-    #from html then I am grabbing question number 
+    #from html then I am grabbing question number
 
+@app.route('/results/<int:filled_form_id>')
+def client_view_forms_submitted(filled_form_id):
+    """client view status of their filled form"""
 
+    form_status = Form_Status.query.get(filled_form_id)
+    filled_form = Filled_Form.query.get(filled_form_id)
+
+    eastern = pytz.timezone('US/Eastern')
+    dt = datetime.now(tz=eastern)
+    time_filled=dt.strftime("%A, %B %d %Y %I:%M%p")
+    
+
+    return render_template("result_status.html", form_status=form_status, filled_form=filled_form)
+
+ 
 @app.route("/safety-plan")
 def safety_plan_form():
     """Survivor is able to safety plan and send results directly to police
@@ -295,11 +371,19 @@ def safety_plan_process():
     form_id = request.form['form_id']
     form = Form.query.get(form_id)
     victim = Victim.query.get(session["login_id"])
-    # print request.form.keys()
-    # return 'cool'
-    filled_form = Filled_Form(form=form, victim=victim, time_filled=datetime.datetime.now())
+  
+    eastern = pytz.timezone('US/Eastern')
+    dt = datetime.now(tz=eastern)
+    time_filled=dt.strftime("%A, %B %d %Y %I:%M%p")
+    
+
+
+    filled_form = Filled_Form(form=form, victim=victim, time_filled=time_filled)
+    form_status = Form_Status(filled_form=filled_form, app_received=time_filled)
     # print filled_form
     db.session.add(filled_form)
+    db.session.add(form_status)
+    db.session.commit()
 
     question_list = filled_form.form.questions
 
@@ -309,11 +393,42 @@ def safety_plan_process():
 
         anwer_object = Answer(question=question, answer_text=answer_text, filled_form=filled_form)
         db.session.add(anwer_object)
+        db.session.commit()
 
-    db.session.commit()
+    
+    count = 0
+    for answer in filled_form.answers:
+        if answer.answer_text == 'yes':
+            count += 1
+    if count > 5:
+        return render_template("safety_plan_alert.html")
+
+
 
     flash("You have successfully submitted your Safety Plan Form")
     return redirect('/welcome')
+
+
+@app.route("/safety-plan-alert", methods=["POST"])
+def safety_form_sent_police_dept():
+    """"Safety plan sent to officer"""
+
+    victim = Victim.query.filter_by(victim_login_id=session["login_id"]).first()
+    login = Login.query.filter_by(login_id=victim.advocate_login_id).first()
+    advocate_name = login.name
+
+    answer = request.form["cpd"]
+    if answer == 'yes':
+        flash("""Your form was sent to the Clearwater Police Department you will be
+            contacted by an victim advocate within 24 hours.""")
+        return redirect("/welcome")
+
+    flash("""Your form was NOT sent to the Clearwater Police Department but it will
+        be seen by your advocate: """ + advocate_name)
+    return redirect("/welcome")
+
+    print answer
+
 
 
 @app.route("/shelter")
@@ -384,9 +499,9 @@ def legal_advocacy_search():
                 'ExactMatch': ""}
 
     data = get_api_data(params)
-    print(data)
-    print(type(data))
-    
+    # print(data)
+    # print(type(data))
+
     profile_list_dict = []
     for response in data:
         profile_dict = {}
@@ -430,6 +545,6 @@ if __name__ == "__main__":
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
     app.config['SQLALCHEMY_ECHO'] = True
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.run(port=5000, host='0.0.0.0')

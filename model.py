@@ -227,7 +227,7 @@ class Filled_Form(db.Model):
     filled_form_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     form_id = db.Column(db.Integer, db.ForeignKey('forms.form_id'))
     victim_login_id = db.Column(db.Integer, db.ForeignKey('victim.victim_login_id'))
-    time_filled = db.Column(db.DateTime, nullable=True)
+    time_filled = db.Column(db.TIMESTAMP, nullable=True)
 
     #Define relationship to Form
     form = db.relationship("Form", backref=db.backref('filled_forms'))
@@ -241,6 +241,28 @@ class Filled_Form(db.Model):
         return """<Filled Form ID: {}, Form ID: {}, Victim ID: {},
                  Time Filled: {}>""".format(self.filled_form_id, self.form_id,
                                             self.victim_login_id, self.time_filled)
+
+class Form_Status(db.Model):
+    """Information on which answers where answered on which form and by which victim."""
+
+    __tablename__ = "form_status"
+
+    filled_form_id = db.Column(db.Integer, db.ForeignKey('filled_forms.filled_form_id'), primary_key=True)
+    app_received = db.Column(db.TIMESTAMP, nullable=False)
+    app_pending = db.Column(db.TIMESTAMP, nullable=True)
+    app_review = db.Column(db.TIMESTAMP, nullable=True)
+    app_results = db.Column(db.String(1000), nullable=True)
+
+
+    filled_form = db.relationship("Filled_Form", backref=db.backref("form_status", uselist=False))
+
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Filled form Id: {}, form received: {}>".format(self.filled_form_id,
+                                               self.app_received)
+
 
 
 

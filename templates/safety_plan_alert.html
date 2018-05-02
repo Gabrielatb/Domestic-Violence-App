@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %} Homepage {% endblock %}
+{% block body %}
+
+<h1> Alert </h1>
+
+You have scored high on the lethality assessment form.
+
+If you feel you are in imminent danger please call 911 or our 24/hour hotline 
+number: 1-800-799-7233<br><br><br>
+
+We will also give you the choice of sending your lethality assessment to 
+Clearwater Police Department which will be immediately reviewed and you will be
+contacted by the Clearwater Police Department victim advocate within 24 hours of 
+you clicking on the "YES" in the below options.<br><br><br>
+
+Would you like for your lethality assessment to be sent to the Clearwater Police
+Department?<br><br><br><br><br>
+
+
+<form action="/safety-plan-alert" method="POST">
+
+<input type='radio' name="cpd" value='yes'>Yes
+<input type='radio' name="cpd" value='no'>No<br><br><br>
+
+
+
+<input id='submit' type='submit'>
+</form>
+
+
+{% endblock %}

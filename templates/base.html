@@ -4,12 +4,24 @@
     <title> {% block title %}{% endblock %}</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
 <style class="iframe" type="text/css">
         body, html
         {
-            margin: 0; padding: 0; height: 100%; overflow: hidden;
+            margin: 0; padding: 0; height: 100%; overflow: hidden; overflow-y: visible;
         }
 </style>
+
+<style class="" type="text/css">
+        body, html
+        {
+            margin: 0; padding: 0; height: 100%; overflow: hidden; overflow-y: visible;
+        }
+</style>
+
 
 {% block style %}
 {% endblock %}
@@ -21,18 +33,54 @@
 
 <iframe class= "iframe"id="myiframe" title="wikipedia" src="https://en.wikipedia.org/wiki" width="100%" height="100%" style='display:none'></iframe>
 
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/welcome">The Haven</a>
+        </div>
 
+    <div class="collapse navbar-collapse navbar-left" id="navbar-left-buttons">
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="/safety-plan">Safety Plan</a></li>
+            <li><a href="/financial">Financial Options</a></li>
+            <li><a href="/shelter">Shelter</a></li>
+            <li><a href="/legal">Legal Advocacy</a></li>
+
+            <!-- TODO if statement so when login as advocate do not see submissions -->
+            <li><a href="/results">Submissions</a></li>
+
+          </ul>  
+        </div>
+
+        <div class="collapse navbar-collapse navbar-right" id="navbar-right-buttons">
+          <ul class="nav navbar-nav navbar-right">
+               {% if "login_id" in session %}
+            <li><a href="/logout">Logout</a></li>
+            {% endif %}
+          </ul>  
+        </div> 
+    </div>
+</nav>
+
+<!--     {#
     {% if "login_id" in session %}
     <a href="/logout">Logout</a>
     {% endif %}
-
+    #}
+ -->
 
     {% for flash in get_flashed_messages() %}
         {{ flash }}
     {% endfor %}
 {% block body %}
 {% endblock %}
-<script src="static/js/base.js"></script>
+<script src="/static/js/base.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
 </body>
 </html>
 

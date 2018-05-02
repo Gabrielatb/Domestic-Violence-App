@@ -17,7 +17,7 @@ Please respond to the following questions to the best of your ability
 {% for question in questions[0] %}
     <li>
     {{question.question_text}}<br>
-    <input required type='radio' name="section_1_{{question.question_number}}" value='yes'>Yes
+    <input required type='radio' name="section_1_{{question.question_number}}" value='yes'>Yes 
     <input required type='radio' name="section_1_{{question.question_number}}"value='no'>No
     <input required type='radio' name="section_1_{{question.question_number}}" value='decline'>Decline 
     {% endfor %}

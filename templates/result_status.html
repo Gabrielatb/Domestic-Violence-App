@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %} Login{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+{% block body %}
+
+
+<h1>Application Status</h1>
+
+<h3>{{filled_form.form.form_name}} Form</h3>
+
+<b>Application Received: </b>{{form_status.app_received}}<br>
+<b>Application Pending: </b>{{form_status.app_pending}}<br>
+<b>Application Reviewed: </b>{{form_status.app_review}}<br>
+<b>Application Results: </b>{{form_status.app_results}}<br>
+
+
+
+{% endblock %}
