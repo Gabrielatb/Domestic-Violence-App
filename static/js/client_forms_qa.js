@@ -4,21 +4,20 @@ function showStatus(result) {
    // console.log("inside show status");
    console.log(result);
 
-    // $("#application_pending").html(result['app_pending']);
 
-    
-
-    if ( result['app_pending'] === "" ) {
+    if ( result['app_pending'] !== "" ) {
         $("#application_pending").html(result['app_pending']);
         $("#submit").val('Application Review');
 
-   } else if ( result['app_review'] === "" ) {
+   } if ( result['app_review'] !== "" ) {
         $("#application_review").html(result['app_review']);
         $("#submit").val('Application Result');
-    } else if ( result['app_results'] === "" ) {
+    } if ( result['app_results'] !== "" ){
         $("#application_results").html(result['app_results']);
         $("#submit").hide();
-    }
+        $("#textarea").hide();
+
+    } 
 }
 
 

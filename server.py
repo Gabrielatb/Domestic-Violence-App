@@ -216,15 +216,15 @@ def app_status_get(filled_form_id):
     if form_status.app_pending is not None:
         time_status['app_pending'] = form_status.app_pending.strftime("%A, %d %B %Y %I:%M%p")
     else:
-       time_status['app_pending'] = " "
+       time_status['app_pending'] = ""
     if form_status.app_review is not None:
         time_status['app_review'] = form_status.app_review.strftime("%A, %d %B %Y %I:%M%p")
     else:
-        time_status['app_review'] = " "
+        time_status['app_review'] = ""
     if form_status.app_results is not None:
         time_status['app_results'] = form_status.app_results
     else:
-        time_status['app_results'] = " "
+        time_status['app_results'] = ""
 
     return jsonify(time_status)
 
@@ -235,10 +235,10 @@ def app_status_post(filled_form_id):
 
     # print request.form
     textbox = request.form.get("textbox")
-    # print textbox
+    print textbox
 
     submit = request.form.get("submit")
-    # print submit
+    print submit
 
 
     eastern = pytz.timezone('US/Eastern')
