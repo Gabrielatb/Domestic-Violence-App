@@ -4,47 +4,35 @@
 
 <h1>Questions and Answers</h1>
 
-<form id = "app_form_status" method="POST">
+<form id = "app_form_status" action='/app-status/{{filled_form.filled_form_id}}'method="POST">
     <input type="hidden" id="filled_form_id" value={{filled_form.filled_form_id}}>
 
 
-<b> Application Received:</b><br> {{time_status.app_received}}<br>
+    <b> Application Received:</b><div>{{time_status.app_received}}</div><br>
 
-<!-- if pending in time_status  -->
-{% if 'app_pending' in time_status %}
-    <b> Application Pending:</b><div id="application_pending"></div>{{time_status.app_pending}}<br>
-{% else %}
-    <b> Application Pending:</b><div id="application_pending"></div>
-{% endif %}
 
-{% if 'app_review' in time_status %}
-    <b> Application Review:</b><div id="application_review"></div>{{time_status.app_review}}<br>
-{% else %}
-    <b> Application Review:</b><div id="application_review"></div>
-{% endif %}
+    
+    <b> Application Pending:</b><div id="application_pending"></div><br>
+   
 
-<b> Application Status:</b><select id = 'dropdown' name="dropdown">
-                                    <option value="blank">---</option>
-                                    <option value="app_pending">Pending</option>
-                                    <option value="app_review">Under Review</option>
-                                    </select><br>
+      
+    <b> Application Review:</b><div id="application_review"></div><br>
+  
+    
 
-<br>Edit Application Results:<br>
-
-<textarea name="textbox" id = "textbox" rows="7" cols="100"></textarea><br><br>
-
-{% if 'app_results' in time_status %}
-Application Results:<br>
-    {{time_status.app_results}}<br>
-{% else %}
-    <div id="application_results"></div>
-{% endif %}
+    <b> Application Results:</b><div id="application_results"></div><br>
 
 
 
+<div id="application_results"><br>Edit Application Results:<br>
 
-<br><br><input id='submit' type='submit'>
+<textarea name="textbox" id = "textbox" rows="7" cols="100"></textarea><br>
+
+
+<br><br><input id='submit' name="submit" type='submit' value='Application Pending'>
+</div>
 </form>
+
 
 
 <hr>

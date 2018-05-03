@@ -1,36 +1,83 @@
-function showStatusChanged(results) {
+function showStatus(result) {
+
    // need to extract jsonify object
-   console.log($("#dropdown").val());
+   // console.log("inside show status");
+   console.log(result);
 
+    // $("#application_pending").html(result['app_pending']);
 
-   if ($("#dropdown").val() == 'app_pending'){
-        $("#application_pending").html(results);
-   }else if ($("#dropdown").val() == 'app_review'){
-        $("#application_review").html(results);
-   }else{
+    
 
-        $("#application_results").val(results);
-   }
+    if ( result['app_pending'] === "" ) {
+        $("#application_pending").html(result['app_pending']);
+        $("#submit").val('Application Review');
 
+   } else if ( result['app_review'] === "" ) {
+        $("#application_review").html(result['app_review']);
+        $("#submit").val('Application Result');
+    } else if ( result['app_results'] === "" ) {
+        $("#application_results").html(result['app_results']);
+        $("#submit").hide();
+    }
 }
+
+
+// based on current status value and name of submit button, 
+    // fills out divs and decides what the button should say 
+
+   // if ( $("#app_pending").val() == "" ) {
+
+   // //      $("#submit").val('Application Review');
+   // //      $("#application_pending").html(results);
+
+   // // } else if ( $("#application_review").val() == "" ){
+
+   //      $("#application_review").html(results);
+
+   // } else if ( $("#application_review").val() == "" ){
+
+   //      $("#application_review").html(results);
+   // }else{
+    // no button
+   // }
+   // onc lick call set status, figures out which status to set, calls get status
+
+
   
+function setStatus(evt) {
+    if (evt) {
+        evt.preventDefault();
+    }
 
-    // alert("Client's form status has been changed");
+    // console.log('inside setStatus');
 
-
-
-function getStatusInfo(evt) {
-    evt.preventDefault();
-
+    // fetch dictionary 
     let formValues = {
-        "dropdown": $("#dropdown").val(),
+        "submit": $("#submit").val(),
         "textbox": $("#textbox").val()
     }
 
+    // console.log(formValues);
+
+    // fetch dictionary 
+
     let filledFormId = $("#filled_form_id").val();
+    // console.log(filledFormId);
 
 
-    $.post("/advocate/" + filledFormId, formValues, showStatusChanged);
+    $.post("/app-status/" + filledFormId, formValues, getStatus);
 }
 
-$("#app_form_status").on("submit", getStatusInfo);
+function getStatus() {
+
+
+    // console.log("inside get status");
+
+    let filledFormId = $("#filled_form_id").val();
+
+    $.get("/app-status/" + filledFormId, showStatus);
+
+}
+
+$("#app_form_status").on("submit", setStatus);
+getStatus();

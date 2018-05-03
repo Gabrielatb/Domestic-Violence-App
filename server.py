@@ -200,52 +200,70 @@ def adocate_view_client_filled_form(filled_form_id):
     form_status = Form_Status.query.get(filled_form_id)
 
     time_status = {}
-    if form_status.app_received is not None:
-        time_status['app_received'] = form_status.app_received.strftime("%A, %d %B %Y %I:%M%p")
-    if form_status.app_pending is not None:
-        time_status['app_pending'] = form_status.app_pending.strftime("%A, %d %B %Y %I:%M%p")
-    if form_status.app_review is not None:
-        time_status['app_review'] = form_status.app_review.strftime("%A, %d %B %Y %I:%M%p")
-    if form_status.app_results is not None:
-        time_status['app_results'] = form_status.app_results
 
+    time_status['app_received'] = form_status.app_received.strftime("%A, %d %B %Y %I:%M%p")
 
     return render_template("client_forms_qa.html", filled_form=filled_form,
-                           time_status = time_status)
+                           time_status=time_status)
+
+@app.route('/app-status/<int:filled_form_id>')
+def app_status_get(filled_form_id):
+    """Getting changed status """
+
+    form_status = Form_Status.query.get(filled_form_id)
+    time_status = {}
+
+    if form_status.app_pending is not None:
+        time_status['app_pending'] = form_status.app_pending.strftime("%A, %d %B %Y %I:%M%p")
+    else:
+       time_status['app_pending'] = " "
+    if form_status.app_review is not None:
+        time_status['app_review'] = form_status.app_review.strftime("%A, %d %B %Y %I:%M%p")
+    else:
+        time_status['app_review'] = " "
+    if form_status.app_results is not None:
+        time_status['app_results'] = form_status.app_results
+    else:
+        time_status['app_results'] = " "
+
+    return jsonify(time_status)
 
 
-@app.route('/advocate/<int:filled_form_id>', methods=["POST"])
-def adocate_view_client_filled_form_content(filled_form_id):
+@app.route('/app-status/<int:filled_form_id>', methods=["POST"])
+def app_status_post(filled_form_id):
     """Receiving changed status adding to database"""
 
-
-    dropdown = request.form.get("dropdown")
-    print dropdown
+    # print request.form
     textbox = request.form.get("textbox")
-    print textbox
+    # print textbox
 
-    if dropdown == "blank":
+    submit = request.form.get("submit")
+    # print submit
+
+
+    eastern = pytz.timezone('US/Eastern')
+    dt = datetime.now(tz=eastern)
+    time_filled=dt.strftime("%A, %d %B %Y %I:%M%p")
+
+    if submit == "Application Pending":
+        db.session.query(Form_Status).filter(Form_Status.filled_form_id==filled_form_id).update({'app_pending': time_filled})
+        db.session.commit()
+    elif submit == "Application Review":
+        db.session.query(Form_Status).filter(Form_Status.filled_form_id==filled_form_id).update({'app_review': time_filled})
+        db.session.commit()
+    else:
         db.session.query(Form_Status).filter(Form_Status.filled_form_id==filled_form_id).update({'app_results': textbox})
         db.session.commit()
-        return jsonify(textbox)
-  
-
-    else:
-        eastern = pytz.timezone('US/Eastern')
-        dt = datetime.now(tz=eastern)
-        time_filled=dt.strftime("%A, %d %B %Y %I:%M%p")
-
-        db.session.query(Form_Status).filter(Form_Status.filled_form_id==filled_form_id).update({dropdown: time_filled})
-        db.session.commit()
-        return jsonify(time_filled)
-
-    db.session.commit()
 
 
+    # else:
 
+    # print app_review
+    # app_results = request.form.get("app_results")
+    # print app_results
 
-
-
+    dict_ok = {'status': 'ok'}
+    return jsonify(dict_ok)
 
 @app.route("/financial")
 def financial():
