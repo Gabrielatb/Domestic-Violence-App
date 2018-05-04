@@ -47,7 +47,11 @@
             <li><a href="/legal">Legal Advocacy</a></li>
 
             <!-- TODO if statement so when login as advocate do not see submissions -->
+                {% if "victim" in session %}
             <li><a href="/results">Submissions</a></li>
+                {% endif %}
+
+
             <li><a href="/message">Message</a></li>
 
 

@@ -46,6 +46,7 @@ def login_process():
     password = request.form['password']
 
     user = Login.query.filter_by(user_name=username).first()
+
     # import pdb; pdb.set_trace()
 
 
@@ -59,23 +60,36 @@ def login_process():
 
         #TODO: for loop (one time), to see see client if advocate or client
 
+
+    #TODO if user is advocate, advocate is true
     session["login_id"] = user.login_id
-    #TODO if user is advocate, advocate is true 
-    #session['victim'] = blah
-    #session['advocate'] = blah
+
+    victim = Victim.query.filter_by(victim_login_id = user.login_id).first()
+    if victim:
+        print "inside victim if statement"
+        session['victim'] = True
+    # else:
+    #     print "inside else statement" 
+    #     session['victim'] = False
+
+    # print session['victim']
+
+
 
     flash("You are logged in")
     return redirect("/welcome")
 
-    #if user.victim == none
-
-    #else
-    #advocate
 @app.route('/logout')
 def logout_process():
     """logout"""
 #TODO check ig login id is in session
-    del session['login_id']
+    if 'victim' in session:
+        del session['login_id']
+        del session['victim']
+    else:
+        del session['login_id']
+
+
     flash("Logged Out.")
     return redirect("/")
 
