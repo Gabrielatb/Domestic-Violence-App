@@ -9,12 +9,13 @@
 {% block body %}
 
 
-
 <h1>Form Submissions</h1>
 {% for victim in victim_list %} 
     {% for filled_form in victim.filled_forms %}
         <li><a href="/results/{{filled_form.filled_form_id}}">{{filled_form.form.form_name}}</a></li>
     {% endfor %}
 {% endfor %}
+
+
 
 {% endblock %}

@@ -17,12 +17,21 @@
 <!-- TODO: post route for act of logging in 
 one time if statement session.get() -->
 
+
+
+<!-- hidden input -->
+
 {% for advocate in advocates %}
     {% if login_id == advocate.advocate_login_id%}
         <h2>Clients</h2>
         <a href="/advocate">View Clients</a>
     {% endif %}
 {% endfor %}
+
+{% for victim in victims %}
+    <input type="hidden" id="login_id" value={{login_id}}>
+    <input type="hidden" id="victim_login_id" value = {{victim.victim_login_id}}>
+{% endfor %}  
 
 
 

@@ -2,7 +2,7 @@ function showStatus(result) {
 
    // need to extract jsonify object
    // console.log("inside show status");
-   console.log(result);
+   // console.log(result);
 
 
     if ( result['app_pending'] !== "" ) {
@@ -19,28 +19,6 @@ function showStatus(result) {
 
     } 
 }
-
-
-// based on current status value and name of submit button, 
-    // fills out divs and decides what the button should say 
-
-   // if ( $("#app_pending").val() == "" ) {
-
-   // //      $("#submit").val('Application Review');
-   // //      $("#application_pending").html(results);
-
-   // // } else if ( $("#application_review").val() == "" ){
-
-   //      $("#application_review").html(results);
-
-   // } else if ( $("#application_review").val() == "" ){
-
-   //      $("#application_review").html(results);
-   // }else{
-    // no button
-   // }
-   // onc lick call set status, figures out which status to set, calls get status
-
 
   
 function setStatus(evt) {

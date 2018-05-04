@@ -60,6 +60,7 @@ def login_process():
         #TODO: for loop (one time), to see see client if advocate or client
 
     session["login_id"] = user.login_id
+    #TODO if user is advocate, advocate is true 
     #session['victim'] = blah
     #session['advocate'] = blah
 
@@ -501,10 +502,15 @@ def legal_advocacy_search():
     county = request.args.get('county')
     city = request.args.get('city')
     birthyear = request.args.get('birthyear')
+    eastern = pytz.timezone('US/Eastern')
+    
+    eastern = pytz.timezone('US/Eastern')
+    dt = datetime.now(tz=eastern)
+    time_filled=dt.strftime("%A, %B %d %Y %I:%M%p")
 
     params = {'App_ID': BACKGROUNDCHECK_APP_ID,
                 'App_Key': BACKGROUNDCHECK_KEY,
-                'Timestamp': datetime.datetime.now(),
+                'Timestamp': time_filled,
                 'catalogue': "BACKGROUND",
                 'FirstName': fname,
                 'LastName': lname,
@@ -550,6 +556,13 @@ def legal_advocacy_search():
         profile_list_dict.append(profile_dict)
 
     return render_template("legal_results.html", profile_list_dict=profile_list_dict)
+
+
+# @app.route('/message')
+# def direct_message():
+#     """Page dedicated to direct message between client and advocate"""
+
+#     return render_template("direct_message.html")
 
 
 
