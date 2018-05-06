@@ -9,7 +9,7 @@ import requests
 from flask import Flask, render_template, redirect, request, session, flash, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from model import Question, Form, Answer, Agency, Shelter_Information, Login
-from model import Advocate, Victim, Agency_Type, Filled_Form, Form_Status
+from model import Advocate, Victim, Agency_Type, Filled_Form, Form_Status, Direct_Message
 from model import connect_to_db, db
 
 app = Flask(__name__)
@@ -68,9 +68,9 @@ def login_process():
     if victim:
         print "inside victim if statement"
         session['victim'] = True
-    # else:
-    #     print "inside else statement" 
-    #     session['victim'] = False
+    else:
+        print "inside else statement" 
+        session['advocate'] = True
 
     # print session['victim']
 
@@ -87,6 +87,7 @@ def logout_process():
         del session['login_id']
         del session['victim']
     else:
+        del session['advocate']
         del session['login_id']
 
 
@@ -572,13 +573,57 @@ def legal_advocacy_search():
     return render_template("legal_results.html", profile_list_dict=profile_list_dict)
 
 
-# @app.route('/message')
-# def direct_message():
-#     """Page dedicated to direct message between client and advocate"""
+@app.route('/message')
+def direct_message_client_or_advocate():
+    """Page dedicated to direct a client or advocate to their message page"""
 
-#     return render_template("direct_message.html")
+    if 'victim' in session:
+        # victim object
+        victim = Victim.query.filter_by(victim_login_id=session["login_id"]).first()
+        #advocate login_id
+        direct_message_list = Direct_Message.query.filter_by(victim_login_id=victim.victim_login_id).all()
+        return render_template("direct_message.html", victim=victim, direct_message_list=direct_message_list)
+    else:
+        victims = Victim.query.filter_by(advocate_login_id=session["login_id"]).all()
+
+        # direct_message_list = Direct_Message.query.filter_by(advocate_login_id=advocate.advocate_login_id).all()
+        return render_template("advocate_view_victims.html", victims=victims)
+
+        # print type(direct_message)
+
+# getting all the direct messages from an advocate
+#getting all the direct messages from the victin
+@app.route('/message/<int:victim_login_id>')
+def advocate_view_victim_direct_message(victim_login_id):
+    """Advocate sees message conversation of client"""
+
+    victim = Victim.query.get(victim_login_id)
+    direct_message_list = Direct_Message.query.filter_by(advocate_login_id=session['login_id'], victim_login_id=victim_login_id)
+
+    return render_template("direct_message_advocate.html", victim=victim, direct_message_list=direct_message_list)
 
 
+@app.route('/post-message', methods=["POST"])
+def direct_message_post():
+    """Messages saved between advocate and client"""
+
+
+    victim_login_id = request.form["victim_login_id"]
+    advocate_login_id = request.form["advocate_login_id"]
+    textarea = request.form["textarea"]
+    sent_by = request.form["sent_by"]
+
+
+    direct_message_object = Direct_Message(victim_login_id=victim_login_id, advocate_login_id=advocate_login_id, direct_message_text=textarea, sent_by=sent_by)
+    db.session.add(direct_message_object)
+    db.session.commit()
+
+    if 'advocate' in session:
+        flash("Message successfully sent")
+        return redirect('/message/' + victim_login_id)
+
+    flash("Message successfully sent")
+    return redirect("/message")
 
 if __name__ == "__main__":
 

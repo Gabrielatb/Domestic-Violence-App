@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -41,18 +42,27 @@
 
     <div class="collapse navbar-collapse navbar-left" id="navbar-left-buttons">
           <ul class="nav navbar-nav navbar-left">
-            <li><a href="/safety-plan">Safety Plan</a></li>
-            <li><a href="/financial">Financial Options</a></li>
+
+                {% if "advocate" in session %}
             <li><a href="/shelter">Shelter</a></li>
             <li><a href="/legal">Legal Advocacy</a></li>
-
-            <!-- TODO if statement so when login as advocate do not see submissions -->
-                {% if "victim" in session %}
-            <li><a href="/results">Submissions</a></li>
-                {% endif %}
-
-
+            <li><a href="/advocate">View Clients</a></li>
             <li><a href="/message">Message</a></li>
+            {% endif %}
+
+
+
+                {% if "victim" in session %}
+            <li><a href="/safety-plan">Safety Plan</a></li>
+            <li><a href="/financial">Financial Options</a></li>
+            <li><a href="/results">Submissions</a></li>
+            <li><a href="/shelter">Shelter</a></li>
+            <li><a href="/legal">Legal Advocacy</a></li>
+            <li><a href="/message">Message</a></li>
+            {% endif %}
+
+
+        
 
 
           </ul>  
@@ -68,12 +78,7 @@
     </div>
 </nav>
 
-<!--     {#
-    {% if "login_id" in session %}
-    <a href="/logout">Logout</a>
-    {% endif %}
-    #}
- -->
+
 
     {% for flash in get_flashed_messages() %}
         {{ flash }}
@@ -83,9 +88,7 @@
 <script src="/static/js/base.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-</body>
 
-</html>
 
 </body>
 </html>

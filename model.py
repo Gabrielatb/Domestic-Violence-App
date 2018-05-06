@@ -256,12 +256,32 @@ class Form_Status(db.Model):
 
     filled_form = db.relationship("Filled_Form", backref=db.backref("form_status", uselist=False))
 
+class Direct_Message(db.Model):
+    """Message text between client and advocate"""
+
+    __tablename__ = "direct_message"
+
+    direct_message_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    victim_login_id = db.Column(db.Integer, db.ForeignKey('victim.victim_login_id'))
+    advocate_login_id = db.Column(db.Integer, db.ForeignKey('advocates.advocate_login_id'))
+    direct_message_text = db.Column(db.String(1000), nullable=False)
+    sent_by = db.Column(db.String(100), nullable=False)
+
+    victim = db.relationship("Victim",
+                           backref=db.backref("direct_message"))
+
+    advocate = db.relationship("Advocate",
+                           backref=db.backref("direct_message"))
+
+
+
+
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Filled form Id: {}, form received: {}>".format(self.filled_form_id,
-                                               self.app_received)
+        return "<Direct Message Id: {}, Direct Message Text: {}>".format(self.direct_message_id,
+                                               self.direct_message_text)
 
 
 

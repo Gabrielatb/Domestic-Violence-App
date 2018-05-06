@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %} Login{% endblock %}
+{% block body %}
+
+<h1>Clients</h1>
+
+<ul>
+
+
+    <!-- TODO need a nested for loop-->
+
+{% for victim in victims %} 
+    <li><a href="/message/{{victim.victim_login_id}}">{{victim.login.name}}</a></li>
+{% endfor %}
+<!-- currently looping through the form -->
+<!-- loop through the forms
+                                    filled_form.form.form_name -->
+
+
+
+
+
+</ul>
+    
+
+
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %} Message {% endblock %}
+{% block body %}
+
+<h1 align='center'> Message </h1>
+
+
+<!-- Button for direct message -->
+<button type="button" class="message_button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Direct Message</button><br><br>
+
+<!-- HEADER -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+<!-- MESSAGE RECIPIENT -->
+      <div class="modal-body">
+        <form action="/post-message" method="POST">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="{{victim.advocate_login_id}}" value="{{victim.login.name}}" name = "victim_name">
+          </div>
+          <input type='hidden' name='victim_login_id' value="{{victim.victim_login_id}}">
+          <input type='hidden' name='advocate_login_id' value="{{victim.advocate_login_id}}">
+          <input type='hidden' name='sent_by' value="{{victim.advocate.login.name}}">
+<!-- MESSAGE BODY  -->
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="textarea" name="textarea"></textarea>
+          </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" name= 'submit' class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{%for direct_message in direct_message_list%}
+  <ol>
+    <b>{{direct_message.sent_by}}:</b> {{direct_message.direct_message_text}}
+  </ol>
+{% endfor %}
+
+{% endblock %}
