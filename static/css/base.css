@@ -1,4 +1,35 @@
-div.navbar {
+.login-button{
+    margin-top: 10%;
+}
+
+.number-beds{
+    font-size: 16px;
+}
+
+.time-bed-available{
+    font-size: 16px;
+}
+.shelter-current-status{
+    font-size: 16px;
+}
+
+.navbar {
     overflow-y: scroll;
+}
+
+.victim-message-button, .advocate-message-button {
+    margin-left: 3%;
+}
+.victim-name-advocate-view-form{
+    font-size: 20px;
+}
+
+.advocate-view-victims{
+    font-size: 20px;
+    margin-left: 5%;
+}
+
+.below-navbar-body{
+    margin-left: 1%;
 }
 

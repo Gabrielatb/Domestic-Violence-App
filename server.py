@@ -440,7 +440,7 @@ def safety_plan_process():
 
 
     flash("You have successfully submitted your Safety Plan Form")
-    return redirect('/welcome')
+    return redirect('/results')
 
 
 @app.route("/safety-plan-alert", methods=["POST"])
@@ -455,11 +455,11 @@ def safety_form_sent_police_dept():
     if answer == 'yes':
         flash("""Your form was sent to the Clearwater Police Department you will be
             contacted by an victim advocate within 24 hours.""")
-        return redirect("/welcome")
+        return redirect("/results")
 
     flash("""Your form was NOT sent to the Clearwater Police Department but it will
         be seen by your advocate: """ + advocate_name)
-    return redirect("/welcome")
+    return redirect("/results")
 
     print answer
 

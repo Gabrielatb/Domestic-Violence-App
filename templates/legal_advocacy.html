@@ -2,25 +2,56 @@
 {% block title %} Legal {% endblock %}
 {% block body %}
 
-<h1>Legal Advocacy</h1>
-<form action= '/legal-background' method="GET">
+<h1 align='center'>Legal Advocacy</h1>
+<form class='form-inline' action= '/legal-background' method="GET">
+<div class='legal-form-input'>
 
+ First Name: 
+<div class="fname">
+    <label for="fname-legal"></label>
+    <input type="text" id="fname "name="fname" class="form-control mx-sm-3">
+</div><br>
 
-First Name: <input type='text' name='fname'><br>
-Last Name: <input type='text' name='lname'><br>
-Middle Name: <input type='text' name='mname'><br>
-State: <input type='text' name='state'><br>
-County: <input type='text' name='county'><br>
-City: <input type='text' name='city'><br>
-Birth Year: <input type='text' name='birthyear'><br>
+Last Name: 
+<div class="lname">
+    <label for="lname-legal"></label>
+    <input type="text" id="lname "name="lname" class="form-control mx-sm-3" placeholder='Required'>
+</div><br>
 
-<!-- For further information on case status, please visit Pinellas County's
-Clerk of Court's Criminal Record Search:
+Middle Name: 
+<div class="mname">   
+    <label for="mname-legal"></label>
+    <input type="text" id="mname "name="mname" class="form-control mx-sm-3">
+</div><br>
 
-<a href=""></a> -->
+State: 
+<div class="state">
+    <label for="state-legal"></label>
+    <input type="text" id="state "name="state" class="form-control mx-sm-3">
+</div><br>
 
-<input id='submit' type='submit'>
+County:
+<div class="county">
+    <label for="county-legal"></label>
+    <input type="text" id="county"name="county" class="form-control mx-sm-3">
+</div><br>
+
+City: 
+<div class="city">
+    <label for="city-legal"></label>
+    <input type="text" id="city" name="city" class="form-control mx-sm-3">
+</div><br>
+
+Date of Birth: 
+<div class="birth-year">
+    <label for="birth-year-legal"></label>
+    <input type="text" id="birth-year" name="birth-year" class="form-control mx-sm-3">
+</div><br>
+</div>
+<input class="btn btn-primary" id='submit' type='submit'>
 </form >
+
+
 <br>
 <br>
 <br>
@@ -31,7 +62,11 @@ For further information on case status please visit Pinellas County's Clerk of t
 
 <a href = "https://ccmspa.pinellascounty.org/PublicAccess/Search.aspx?ID=400&NodeID=11000,11100,23001,11101,11102,11103,11104,11105,11106,11107,11108,11114,11109,23002,23003,11110,11111,11112,11113,11200,11201,11202,11203,11204,11205,11206,11207,11208,23004,11209,11210,11300,11301,11302,11303,11304,11305,11400,11410,11411,11412,11450,11451,11452,11453,11600,11601,11602,11603,11604,12000,12100,12101,12102,12103,12104,12105,12106,12107,12108,12109,12110,12111,12113,12112,12114,12200,12201,12202,12203,12204,12205,12206,12207,12208,12209,12300,12310,12311,12312,12320,12321,12322,12400,14000,14100,14200,14300,14400,14500,14600,13000,13100,13200&NodeDesc=Pinellas%20County">Injunction/Restraining Order Record Search</a>
 
-
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 {% endblock %}

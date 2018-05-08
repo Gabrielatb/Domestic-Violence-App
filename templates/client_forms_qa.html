@@ -29,7 +29,7 @@
 <textarea name="textbox" id = "textbox" rows="7" cols="100"></textarea><br>
 
 
-<br><br><input id="submit" name="submit" type="submit" value='Application Pending'>
+<br><br><input class="btn btn-primary" id="submit" name="submit" type="submit" value='Application Pending'>
 </div>
 </form>
 
@@ -41,7 +41,7 @@
 <h3>{{filled_form.form.form_name}}</h3>
     {% for answer in filled_form.answers %}
         <li>{{answer.question.question_text}}</li>
-        <li>{{answer.answer_text}}</li>
+        <b>Answer: </b>{{answer.answer_text}}
         <hr/>
     {% endfor %}
 

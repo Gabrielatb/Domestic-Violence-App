@@ -2,13 +2,16 @@
 {% block title %} Shelter {% endblock %}
 {% block body %}
 
-<h1> Shelter </h1>
+<h1 align='center'> Shelter </h1>
 
 
+<br><br><h3> Shelter's Current Status</h3><br>
 
+<div class='shelter-current-status'>
 <b>Available beds:</b> {{shelter.number_beds}}<br>
 <b>Next available date:</b> {{shelter.next_available_date}}<br>
 <b>24/hour hotline number:</b> 1-800-799-7233<br>
+</div>
 <!-- -Shelter Template
 -Shelter status
 -fill out shelter route
@@ -19,13 +22,23 @@
 {% for advocate in advocates%}
     {% if login_id == advocate.advocate_login_id%}
     <!-- if true then show this information -->
-        <form action="/shelter" method="POST"><br><br><br><br><br>
-            <b>Please Edit Shelter Status Below</b><br><br>
-            Number of beds available: <input type="text" name="number_available_beds"><br>
-            Time the next bed will be available: <input type="datetime-local" name="time_available_beds"><br>
-        </form>
-            <input id='submit' type='submit'>
+        <form class="form-inline" action="/shelter" method="POST"><br><br><br><br>
+            <h3>Please Edit Shelter Status Below</h3><br>
+            <div class="number-beds">
+            Number of beds available: 
+            <label for="numberBedsAvailable"></label>
+            <input type="text" id="number"name="number_available_beds" class="form-control mx-sm-3" >
+            </div><br>
 
+            <div class="time-bed-available">
+            Time the next bed will be available: 
+
+            <label for="timeBedsAvailable"></label>
+            <input type="datetime-local" name="time_available_beds" class="form-control mx-sm-3"><br><br>
+            <input class="btn btn-primary" id='submit' type='submit'><br><br><br>
+            </div>
+        </form>
+           
 
 
     {% endif %}

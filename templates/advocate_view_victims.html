@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %} Login{% endblock %}
+{% block title %} Clients {% endblock %}
 {% block body %}
 
-<h1>Clients</h1>
+<h1 align='center'>Clients</h1>
 
 <ul>
 
@@ -10,7 +10,9 @@
     <!-- TODO need a nested for loop-->
 
 {% for victim in victims %} 
+<div class='advocate-view-victims'>
     <li><a href="/message/{{victim.victim_login_id}}">{{victim.login.name}}</a></li>
+    </div>
 {% endfor %}
 <!-- currently looping through the form -->
 <!-- loop through the forms

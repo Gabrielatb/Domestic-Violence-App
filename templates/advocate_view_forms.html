@@ -1,16 +1,17 @@
 {% extends "base.html" %}
-{% block title %} Login{% endblock %}
+{% block title %} Clients {% endblock %}
 {% block body %}
 
-<h1>Clients' Filled Out Forms</h1>
+<h1 align='center'>Clients' Filled Out Forms</h1>
 
- Clients<br>
 <ul>
 
     <!-- TODO need a nested for loop-->
 
 {% for victim in victims %} 
+    <div class="victim-name-advocate-view-form">
     <br><b>{{victim.login.name}}:<br></b>
+    </div>
     {% for filled_form in victim.filled_forms %}
         <li><a href="/advocate/{{filled_form.filled_form_id}}">{{filled_form.form.form_name}}</a></li>
     {% endfor %}
