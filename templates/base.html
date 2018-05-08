@@ -31,7 +31,7 @@
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/welcome">The Haven</a>
+            <a class="navbar-brand" href="/welcome">My Haven</a>
         </div>
 
     <div class="collapse navbar-collapse navbar-left" id="navbar-left-buttons">
@@ -39,7 +39,7 @@
 
                 {% if "advocate" in session %}
             <li><a href="/shelter">Shelter</a></li>
-            <li><a href="/legal">Legal Advocacy</a></li>
+            <li><a href="/legal">Legal</a></li>
             <li><a href="/advocate">View Clients</a></li>
             <li><a href="/message">Message</a></li>
             {% endif %}
@@ -48,10 +48,10 @@
 
                 {% if "victim" in session %}
             <li><a href="/safety-plan">Safety Plan</a></li>
-            <li><a href="/financial">Financial Options</a></li>
+            <li><a href="/financial">Financial</a></li>
             <li><a href="/results">Submissions</a></li>
             <li><a href="/shelter">Shelter</a></li>
-            <li><a href="/legal">Legal Advocacy</a></li>
+            <li><a href="/legal">Legal</a></li>
             <li><a href="/message">Message</a></li>
             {% endif %}
 

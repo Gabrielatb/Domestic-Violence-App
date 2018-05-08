@@ -21,22 +21,19 @@ S -->
 
         <b>Safety Plan:</b> Please fillout an assessment form at any point.<br>
 
-        This assessment is intended to measure the risk of your relationship. The assessment will be sent to your advocate who will review the results in order to better understand how to support and help you. If the assessment has a high score, you will have an <b>option</b> to send the results to Clearwater Police Department as well as your advocate<br><br>
+        This assessment is intended to measure the level of risk in your relationship. The assessment will be sent to your advocate who will review the results in order to understand how to better support and help you. If the assessment has a high score, you will have an <b>option</b> to send the results to Clearwater Police Department as well as your advocate<br><br>
 
-        <b>Financial Options:</b> You can fillout your Victim Compensation Application Here.<br>
-        The results will be sent to your advocate who will then send the applicaiton to the 
-        Office of Attorney General.<br><br>
+        <b>Financial Options:</b> You can fillout your Victim Compensation Application within the Financial tab.<br>
+        The results will be sent to your advocate who will then send the applicaiton to the Office of Attorney General.<br><br>
 
         <b>Submissions:</b> You can check the status of any of the forms you have submitted.<br><br>
         
-        
-
         <b>Shelter:</b> You may check the status of Haven's 24/hour emergency shelter at any time.<br>
-        Please, contact your advocate or our 24 hour emergency hotline: 1-800-799-7233 if there are available beds and you feel you qualify for Shelter <br><br>
+        Please contact your advocate or our 24 hour emergency hotline: <b>1-800-799-7233</b> if there are available beds and you feel you qualify for Shelter <br><br>
 
-        <b>Legal Advocacy:</b> By accessing the legal advocacy tab you are able is able to find defendan't criminal history. Please, contact your advocate for further legal resources. <br><br>
+        <b>Legal Advocacy:</b> By accessing the legal advocacy tab you are able to find a defendan't criminal history. Please, contact your advocate for further legal resources. <br><br>
 
-        <b>Message:</b> The Messaging Center is for you to communicate with your advocate online. 
+        <b>Message:</b> Access the Messaging tab to communicate with your advocate online. 
         You may contact your advocate <b>at any time.</b><br>
 
         <br><br><br>For information about this web application please visit: <a href='https://github.com/Gabrielatb/Domestic-Violence-App'>Github</a><br><br><br>
@@ -52,22 +49,23 @@ S -->
 
 {% for advocate in advocates %}
     {% if login_id == advocate.advocate_login_id%}
+    <input type="hidden" id="login_id" value={{login_id}}>
 
         <h3>Purpose:</h3> This website is intended for communcation between <b>you</b> and your <b>clients</b>.<br>
 
         <h3>Navigating Webpage:</h3> 
 
-        <b>Shelter:</b> You are able to update status of the shelter here.<br>
-        Please update number of available beds as well as time of availability.<br><br>
+        <b>Shelter:</b> In the Shelter tab you are able to update the status of the shelter.<br>
+        Please update the number as well as the time the beds are available.<br><br>
 
-        <b>Legal Advocacy:</b> Research defendan't criminal history.<br>
-        If at any point your client has further information about the status of any case<br>
+        <b>Legal Advocacy:</b> In the Legal tab you are able to research a defendant's criminal history.<br>
+        If at any point your client needs further information about the status of any case
         please visit <a href='https://ccmspa.pinellascounty.org/PublicAccess/default.aspx'>Pinellas County Clerk of the Court</a>.<br><br>
 
-        <b>View Clients:</b> View all clients your clients and their submitted forms.<br> When you click on an individual client you will see all the forms they have submitted, once you click on the form you will see their response as well as their application status.Update the application status as needed. <br><br>
+        <b>View Clients:</b> View all of your clients and their submitted forms.<br> When you click on an individual client you will see all the forms they have submitted, once you click on the form you will see their response as well as their application status. Update the application status as needed. <br><br>
 
         <b>Message:</b> Contact any of your clients through the messaging center.<br> 
-        If at any point you feel your client is is imminent danger contact your manager <b>immediately</b>.
+        If at any point you feel your client is in danger contact your manager <b>immediately</b>.
 
         <br><br><br>For information about this web application please visit: <a href='https://github.com/Gabrielatb/Domestic-Violence-App'>Github</a><br><br><br>
 
