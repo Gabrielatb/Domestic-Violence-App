@@ -5,18 +5,11 @@ function messagePostComplete(result) {
 
 
 
-
-
-
-
   function postMessage(evt) {
     if (evt) {
         evt.preventDefault();
     }
-    // console.log("inside post message");
-//     // console.log('inside setStatus');
-
-//     // fetch dictionary 
+        console.log('inside postMessage');
     let formValues = {
         "textarea": $("#textarea").val()
     }
@@ -30,8 +23,8 @@ function messagePostComplete(result) {
 //     // console.log(filledFormId);
 
 
-    $.post('/message',  formValues, messagePostComplete);
-// }
+//     $.post('/message',  formValues, messagePostComplete);
+// // }
 
 // function getStatus() {
 
@@ -44,6 +37,6 @@ function messagePostComplete(result) {
 
 }
 
-$("#direct_message_form").on("submit", postMessage);
+$("#victim_direct_message").on("submit", postMessage);
 // getStatus();
 

@@ -21,7 +21,7 @@
       </div>
 <!-- MESSAGE RECIPIENT -->
       <div class="modal-body">
-        <form action="/post-message" method="POST">
+        <form id="victim_direct_message" action="/post-message" method="POST">
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Recipient:</label>
             <input type="text" class="form-control" id="{{victim.advocate_login_id}}" value="{{victim.advocate.login.name}}" name = "advocate_name">
@@ -38,7 +38,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name= 'submit' class="btn btn-primary">Submit</button>
+        <button type="submit" name= 'submit' class="btn btn-primary" id='submit'>Submit</button>
         </form>
       </div>
     </div>
