@@ -3,3 +3,4 @@
 secrets.sh
 *DS_Store
 *.coverage
+nginx.conf

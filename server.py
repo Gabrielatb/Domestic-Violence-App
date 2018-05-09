@@ -1,7 +1,6 @@
 """Haven Domestic Violence Application"""
 
 
-from jinja2 import StrictUndefined
 from datetime import datetime
 import pytz
 import os
@@ -25,7 +24,7 @@ BACKGROUNDCHECK_KEY = os.environ['BACKGROUNDCHECK_KEY']
 
 #undefined variables in Jinja2 will fail without notifing, so
 #StrictUndefined will allow Jinja2 to raise an error for undef variables
-app.jinja_env.undefined = StrictUndefined
+
 
 
 @app.route('/', methods=['GET'])
@@ -627,9 +626,6 @@ def direct_message_post():
 
 if __name__ == "__main__":
 
-    app.debug = True
-
-    app.jinja_env.auto_reload = app.debug
 
     connect_to_db(app)
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
