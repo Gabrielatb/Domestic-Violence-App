@@ -15,6 +15,7 @@ __API:__ Background Check API
 
 ## Features
 * My site has two different interfaces one for victims (left) and one for advocates (right)
+
 ![Two Different Interfaces](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/two_diff_interfaces.png)
 * Victim can fill out a Safety Plan form as well as a Victim Compensation Application and their advocate will receive the results.
 * Victim is able to accesss all the forms they submitted to check the status of the application.
