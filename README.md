@@ -1,5 +1,4 @@
 # My Haven
-![Iframe] (https://gph.is/2kocCSo)
 ## Summary
 My Haven is a web app for domestic violence victims who are receiving services from a domestic violence agency. 
 It serves two main purpose: 
