@@ -17,6 +17,7 @@ __API:__ Background Check API
 ![Two Different Interfaces](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/two_diff_interfaces.png)
 
 * Victim can fill out a Safety Plan form which assess the severity of an abusive relationship.
+![Safety Plan Fillout](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/safety_plan_fill_out.png)
 
 
 
