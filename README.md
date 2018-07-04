@@ -21,7 +21,7 @@ __API:__ Background Check API
 * If the victim receives a high score they will receive an alert message which will allow them to send their Safety Plan form to their local police department.
 ![Alert Message](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/alert_message.png)
 
-* Victim is able to accesss all the forms they submitted to check the status of the application.
+* Victim is able to accesss all the forms they submitted to check the status of their application.
 ![Form Submissions](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/submissions.png)
 
 * Advocate is able to view all their clients filled forms.
