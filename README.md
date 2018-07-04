@@ -40,7 +40,7 @@ __API:__ Background Check API
 ![Messaging Center](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/messaging_center.png)
 
 * Below is a look into the data model I created for the web app
-![DB ](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/My%20Haven%20Db%20model.png)
+![DB](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/My%20Haven%20Db%20model.png)
 
 ## About the Developer
 Gabriela Borges is a software engineer in Bay Area, California. Learn more about her on [LinkedIn](https://www.linkedin.com/in/gabriela-t-borges/).
