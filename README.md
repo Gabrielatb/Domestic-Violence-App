@@ -13,17 +13,17 @@ __API:__ Background Check API
 
 ## Features
 * My site has two different interfaces one for victims (left) and one for advocates (right)
-
 ![Two Different Interfaces](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/two_diff_interfaces.png)
 
 * Victim can fill out a Safety Plan form which assess the severity of an abusive relationship.
 ![Safety Plan Fillout](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/safety_plan_fill_out.png)
 
-* If the victim receives a high score they will receive an alert message which will allow them to their Safety Plan form to their local police department.
+* If the victim receives a high score they will receive an alert message which will allow them to send their Safety Plan form to their local police department.
 ![Alert Message](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/alert_message.png)
 
 * Victim is able to accesss all the forms they submitted to check the status of the application.
 ![Form Submissions](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/submissions.png)
+
 * Advocate is able to view all their clients filled forms.
 ![Clients' Filled Forms](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/clients_filled_form.png)
 
@@ -39,7 +39,8 @@ __API:__ Background Check API
 * Victim and advocate are able to communicate with one another through the messaging center.
 ![Messaging Center](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/messaging_center.png)
 
-* Below is the data model I created
+* Below is a look into the data model I created for the web app
 ![DB ](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/My%20Haven%20Db%20model.png)
+
 ## About the Developer
 Gabriela Borges is a software engineer in Bay Area, California. Learn more about her on [LinkedIn](https://www.linkedin.com/in/gabriela-t-borges/).
