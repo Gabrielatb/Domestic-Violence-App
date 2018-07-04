@@ -30,7 +30,7 @@ __API:__ Background Check API
 * Advocate is able to update the status of their client's application.
 ![Update Client Filled Form ](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/update_status.png)
 
-* Both advocate and client can research a defendant's criminal record through the Background Check API.
+* Both advocate and victim can research a defendant's criminal record through the Background Check API.
 ![Background Check](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/criminal_record_search.png)
 
 * Advocates are able to change the status of the Emergency Shelter so a victim can see how many available beds there are and when another bed will be available.
@@ -38,6 +38,9 @@ __API:__ Background Check API
 
 * Victim and advocate are able to communicate with one another through the messaging center.
 ![Messaging Center](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/messaging_center.png)
+
+* If Victim feels unsafe while on the site they can click the escape button on the top left hand side of the screen and a fully functional wikipedia page will cover the entire screen.
+![Wiki Page](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/wiki_page.png)
 
 * Below is a look into the data model I created for the web app
 ![DB](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/My%20Haven%20Db%20model.png)
