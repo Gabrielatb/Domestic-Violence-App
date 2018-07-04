@@ -39,7 +39,7 @@ __API:__ Background Check API
 * Victim and advocate are able to communicate with one another through the messaging center.
 ![Messaging Center](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/messaging_center.png)
 
-* If Victim feels unsafe while on the site they can click the escape button on the top left hand side of the screen and a fully functional wikipedia page will cover the entire screen.
+* If a victim feels unsafe while on the site they can click the escape button on the top left hand side of the screen and a fully functional Wikipedia page will cover the entire screen.
 ![Wiki Page](https://github.com/Gabrielatb/Domestic-Violence-App/blob/master/static/img/wiki_page.png)
 
 * Below is a look into the data model I created for the web app
