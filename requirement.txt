@@ -22,4 +22,4 @@ six==1.11.0
 socketio==0.0.9
 SQLAlchemy==1.1.7
 urllib3==1.21.1
-Werkzeug==0.12.2
+Werkzeug==0.15.3
